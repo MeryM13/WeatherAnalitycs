@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="WeatherAnalitycs.View.GetTableUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="271" d:DesignWidth="800"
+             FontSize="22" FontFamily="Bahnschrift SemiLight">
+    <Grid Background="#FFE5E5E5">
+        <CheckBox x:Name="chkDateAndTime" Content="Объединить дату и время" HorizontalAlignment="Left" Margin="44,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkWindDirection" Content="Направление ветра" HorizontalAlignment="Left" Margin="44,184,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkWindSpeed" Content="Сила ветра" HorizontalAlignment="Left" Margin="403,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkTemperature" Content="Температура воздуха" HorizontalAlignment="Left" Margin="403,94,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkHumidity" Content="Относительная влажность воздуха" HorizontalAlignment="Left" Margin="403,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkPressure" Content="Атмосферное давление" HorizontalAlignment="Left" Margin="403,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkSnowHeight" Content="Высота снежного покрова" HorizontalAlignment="Left" Margin="403,184,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Button x:Name="btnGetTable" Content="Расчет" HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Click="btnGetTable_Click" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Выберите значения, которые будут показаны в таблице:" VerticalAlignment="Top" Width="780" FontSize="24" FontFamily="Bahnschrift SemiBold" TextAlignment="Center"/>
+        <CheckBox x:Name="chkStationID" Content="Индекс метеостанции" HorizontalAlignment="Left" Margin="44,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationID_Checked"/>
+        <CheckBox x:Name="chkStationName" Content="Название метеостанции" HorizontalAlignment="Left" Margin="44,94,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationName_Checked"/>
+        <CheckBox x:Name="chkDate" Content="Дата" HorizontalAlignment="Left" Margin="44,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkDate_Checked"/>
+        <CheckBox x:Name="chkTime" Content="Время" HorizontalAlignment="Left" Margin="166,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkTime_Checked"/>
+        <Rectangle HorizontalAlignment="Left" Height="154" Width="2" Margin="379,55,0,0" Stroke="Black" VerticalAlignment="Top"/>
+    </Grid>
+</UserControl>
