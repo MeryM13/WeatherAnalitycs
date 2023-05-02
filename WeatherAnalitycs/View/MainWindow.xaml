@@ -22,19 +22,19 @@
         <TabControl Height="306" Margin="0,208,0,0" Width="928" VerticalAlignment="Top" HorizontalAlignment="Center" TabStripPlacement="Top" FontSize="22" FontFamily="Bahnschrift SemiLight">
             <TabItem Header="Таблица">
                 <Grid Background="#FFE5E5E5">
-                    <CheckBox x:Name="chkDateAndTime" Content="Объединить дату и время" HorizontalAlignment="Left" Margin="44,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkWindDirection" Content="Направление ветра" HorizontalAlignment="Left" Margin="44,184,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkWindSpeed" Content="Сила ветра" HorizontalAlignment="Left" Margin="403,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkTemperature" Content="Температура воздуха" HorizontalAlignment="Left" Margin="403,94,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkHumidity" Content="Относительная влажность воздуха" HorizontalAlignment="Left" Margin="403,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkPressure" Content="Атмосферное давление" HorizontalAlignment="Left" Margin="403,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkSnowHeight" Content="Высота снежного покрова" HorizontalAlignment="Left" Margin="403,184,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chkDateAndTime" Content="Объединить дату и время" HorizontalAlignment="Left" Margin="44,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkDateAndTime_Checked" Unchecked="chkDateAndTime_Unchecked" IsEnabled="False"/>
+                    <CheckBox x:Name="chkWindDirection" Content="Направление ветра" HorizontalAlignment="Left" Margin="44,184,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkWindDirection_Checked" Unchecked="chkWindDirection_Unchecked"/>
+                    <CheckBox x:Name="chkWindSpeed" Content="Сила ветра" HorizontalAlignment="Left" Margin="403,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkWindSpeed_Checked" Unchecked="chkWindSpeed_Unchecked"/>
+                    <CheckBox x:Name="chkTemperature" Content="Температура воздуха" HorizontalAlignment="Left" Margin="403,94,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkTemperature_Checked" Unchecked="chkTemperature_Unchecked"/>
+                    <CheckBox x:Name="chkHumidity" Content="Относительная влажность воздуха" HorizontalAlignment="Left" Margin="403,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkHumidity_Checked" Unchecked="chkHumidity_Unchecked"/>
+                    <CheckBox x:Name="chkPressure" Content="Атмосферное давление" HorizontalAlignment="Left" Margin="403,154,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkPressure_Checked" Unchecked="chkPressure_Unchecked"/>
+                    <CheckBox x:Name="chkSnowHeight" Content="Высота снежного покрова" HorizontalAlignment="Left" Margin="403,184,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkSnowHeight_Checked" Unchecked="chkSnowHeight_Unchecked"/>
                     <Button x:Name="btnGetTable" Content="Расчет" HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Click="btnGetTable_Click" />
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Выберите значения, которые будут показаны в таблице:" VerticalAlignment="Top" Width="780" FontSize="24" FontFamily="Bahnschrift SemiBold" TextAlignment="Center"/>
-                    <CheckBox x:Name="chkStationID" Content="Индекс метеостанции" HorizontalAlignment="Left" Margin="44,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationID_Checked"/>
-                    <CheckBox x:Name="chkStationName" Content="Название метеостанции" HorizontalAlignment="Left" Margin="44,94,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationName_Checked"/>
+                    <CheckBox x:Name="chkStationID" Content="Индекс метеостанции" HorizontalAlignment="Left" Margin="44,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationID_Checked" Unchecked="chkStationID_Unchecked"/>
+                    <CheckBox x:Name="chkStationName" Content="Название метеостанции" HorizontalAlignment="Left" Margin="44,94,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationName_Checked" Unchecked="chkStationName_Unchecked"/>
                     <CheckBox x:Name="chkDate" Content="Дата" HorizontalAlignment="Left" Margin="44,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkDate_Checked" Unchecked="chkDate_Unchecked"/>
-                    <CheckBox x:Name="chkTime" Content="Время" HorizontalAlignment="Left" Margin="166,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkTime_Checked"/>
+                    <CheckBox x:Name="chkTime" Content="Время" HorizontalAlignment="Left" Margin="166,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkTime_Checked" Unchecked="chkTime_Unchecked" IsChecked="False" IsEnabled="False"/>
                     <Rectangle HorizontalAlignment="Left" Height="154" Width="2" Margin="379,55,0,0" Stroke="Black" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>

@@ -54,8 +54,9 @@ namespace WeatherAnalytics.View
         {
             try
             {
-                //TO DO: Progress bar
-                _parser.AddStation(_station);
+                var result = MessageBox.Show($"Вы уверены что хотите добавить станцию {_station.Name}? Добавление запустит процесс парсинга всех имеющихся метеоданных этой станции, что может быть долгим процессом. Процесс парсинга не должен прерываться.", $"Добавить станцию {_station.Name}", MessageBoxButton.YesNoCancel);
+                ProgressBarWindow progress = new(() => _parser.AddStation(_station));
+                this.Close();
             }
             catch (Exception ex)
             {

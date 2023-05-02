@@ -102,6 +102,5 @@ namespace WeatherAnalitycs.ViewModel
         public string WindowTitle { get; set; }
         public ISeries[] Series { get; set; }
         public decimal ChartRotation {get; set;}
-       // public List<Axis> XAxes { get; set; }
     }
 }

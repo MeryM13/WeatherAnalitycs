@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WeatherAnalytics.View"
         mc:Ignorable="d"
-        Title="ProgressBarWindow" Height="157" Width="400">
+        Title="Идет загрузка данных" Height="157" Width="400">
     <Grid>
         <ProgressBar HorizontalAlignment="Center" Height="28" Margin="0,101,0,0" VerticalAlignment="Top" Width="360" IsIndeterminate="True"/>
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Пожалуйста, дождитесь конца загрузки. Прерывание процесса повлияет на репрезантативность данных и может привести к сбоям программы." VerticalAlignment="Top" FontSize="14" FontFamily="Bahnschrift SemiLight" Width="360" TextAlignment="Center" Margin="0,41,0,0"/>

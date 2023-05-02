@@ -12,9 +12,8 @@
         <RadioButton x:Name="rbChooseUpgrades" Content="Выбрать станции:" HorizontalAlignment="Left" Margin="55,137,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" VerticalContentAlignment="Center" IsChecked="True" Checked="rbChooseUpgrades_Checked"/>
         <Button x:Name="btnUpdate" Content="Обновить" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" Background="White" Click="btnUpdate_Click"/>
         <Rectangle HorizontalAlignment="Left" Height="2" Margin="55,112,0,0" Stroke="Black" VerticalAlignment="Top" Width="700"/>
-        <ScrollViewer x:Name="viewer" Margin="55,167,45,68" Height="200" Width="700" CanContentScroll="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" BorderBrush="Black" BorderThickness="2,2,2,2" Background="White">
-            <Grid x:Name="checkboxGrid"></Grid>
+        <ScrollViewer x:Name="presenter" Margin="10,167,10,45" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch">
+            <Grid x:Name="checkboxGrid" ScrollViewer.HorizontalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"></Grid>
         </ScrollViewer>
-
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WeatherDataParser;
+using WeatherDataParser.CLASSES;
 
 namespace WeatherAnalytics.View
 {
@@ -38,7 +39,7 @@ namespace WeatherAnalytics.View
                 check.FontFamily = new FontFamily("Bahnschrift SemiLight");
 
                 check.Margin = new Thickness(x * 250 + 10, y * 25 + 10, 0, 0);
-                if (y < 5)
+                if (y < 4)
                 {
                     y++;
                 }
@@ -47,7 +48,6 @@ namespace WeatherAnalytics.View
                     y = 0;
                     x++;
                 }
-
                 checkboxGrid.Children.Add(check);
             }
         }
@@ -86,14 +86,29 @@ namespace WeatherAnalytics.View
         {
             if (_doFullUpdate)
             {
-                _parser.FullUpdate();
-                this.Close();
+                var result = MessageBox.Show("Вы уверены, что хотите обновить информацию о метеоданных для всех станций? \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ProgressBarWindow progress = new(() => _parser.FullUpdate());
+                    this.Close();
+                }
             }
-            foreach (int station in _updateStations) 
+            else
             {
-                _parser.UpdateStationData(station);
+                string stations = _updateStations.ToString();
+                var result = MessageBox.Show($"Вы уверены, что хотите обновить информацию о метеоданных для следующих станций: {String.Join(',', _updateStations)} \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ProgressBarWindow progress = new(() =>
+                    {
+                        foreach (int station in _updateStations)
+                        {
+                            _parser.UpdateStationData(station);
+                        }
+                    });
+                    this.Close();
+                }
             }
-            this.Close();
         }
     }
 }

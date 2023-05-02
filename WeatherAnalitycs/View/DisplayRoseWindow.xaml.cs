@@ -25,14 +25,12 @@ namespace WeatherAnalitycs.View
         {
             InitializeComponent();
             this.DataContext = new DisplayRoseWindowViewModel(title, data);
-            this.Title = title;
         }
 
         public DisplayRoseWindow(string title, Dictionary<decimal, int> data)
         {
             InitializeComponent();
             this.DataContext = new DisplayRoseWindowViewModel(title, data);
-            this.Title = title;
         }
     }
 }

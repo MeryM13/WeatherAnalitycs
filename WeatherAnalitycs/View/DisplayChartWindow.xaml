@@ -6,12 +6,12 @@
         xmlns:vm="clr-namespace:WeatherAnalitycs.ViewModel"
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
-        Title="DisplayTableWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}" Height="450" Width="800">
 
     <Grid>
         <TextBlock x:Name="WindowTitle" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="30" TextAlignment="Center" Height="110"><Run Language="ru-ru" Text="{Binding WindowTitle}"></Run></TextBlock>
         <lvc:CartesianChart 
-                Series="{Binding Series}" XAxes="{Binding XAxes}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ZoomMode="Both" Margin="0,88,0,0"/>
+                Series="{Binding Series}" XAxes="{Binding XAxes}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ZoomMode="Both" Margin="0,125,0,0"/>
 
     </Grid>
 </Window>

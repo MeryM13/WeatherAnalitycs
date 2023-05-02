@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:WeatherAnalitycs.ViewModel"
         mc:Ignorable="d"
-        Title="DisplayTableWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}" Height="450" Width="800">
 
     <Grid>
-        <TextBlock x:Name="WindowTitle" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="30" TextAlignment="Center" Height="110"><Run Language="ru-ru" Text="Таблица метеоданных"/><Run Text=" для "/><Run Text="станции "/><Run Text="Иркутск (30710)"/><Run Text=" за период с "/><Run Text="01.03.2019"/><Run Text=" до "/><Run Text="02.04.202"/><Run Text="1"/></TextBlock>
-        <DataGrid x:Name="Grid" Margin="0,89,0,0"/>
+        <TextBlock x:Name="WindowTitle" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="30" TextAlignment="Center" Height="110"><Run Language="ru-ru" Text="{Binding WindowTitle}"/></TextBlock>
+        <DataGrid x:Name="Grid" Margin="0,125,0,0" ItemsSource="{Binding Table}"/>
     </Grid>
 </Window>

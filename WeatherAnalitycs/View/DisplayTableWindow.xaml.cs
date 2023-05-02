@@ -17,6 +17,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using WeatherDataParser;
 using System.Data;
+using WeatherAnalitycs.ViewModel;
 
 namespace WeatherAnalytics.View
 {
@@ -28,10 +29,7 @@ namespace WeatherAnalytics.View
         public DisplayTableWindow(DataTable table, string title)
         {
             InitializeComponent();
-
-            this.Title = title;
-            WindowTitle.Text = title;
-            Grid.ItemsSource = table.DefaultView;
+            this.DataContext = new DisplayTableWindowViewModel(table, title);
         }
     }
 }
