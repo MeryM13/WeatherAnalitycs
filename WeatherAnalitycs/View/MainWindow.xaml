@@ -33,7 +33,7 @@
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Выберите значения, которые будут показаны в таблице:" VerticalAlignment="Top" Width="780" FontSize="24" FontFamily="Bahnschrift SemiBold" TextAlignment="Center"/>
                     <CheckBox x:Name="chkStationID" Content="Индекс метеостанции" HorizontalAlignment="Left" Margin="44,64,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationID_Checked"/>
                     <CheckBox x:Name="chkStationName" Content="Название метеостанции" HorizontalAlignment="Left" Margin="44,94,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkStationName_Checked"/>
-                    <CheckBox x:Name="chkDate" Content="Дата" HorizontalAlignment="Left" Margin="44,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkDate_Checked"/>
+                    <CheckBox x:Name="chkDate" Content="Дата" HorizontalAlignment="Left" Margin="44,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkDate_Checked" Unchecked="chkDate_Unchecked"/>
                     <CheckBox x:Name="chkTime" Content="Время" HorizontalAlignment="Left" Margin="166,124,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkTime_Checked"/>
                     <Rectangle HorizontalAlignment="Left" Height="154" Width="2" Margin="379,55,0,0" Stroke="Black" VerticalAlignment="Top"/>
                 </Grid>
@@ -41,45 +41,47 @@
             <TabItem Header="График повторяемости">
                 <Grid Background="#FFE5E5E5">
                     <Image Height="NaN" Margin="83,10,593,10" Source="/Rose.png" Stretch="Fill" Width="NaN" IsEnabled="False" OpacityMask="Black"/>
-                    <RadioButton x:Name="rbNorth" Content="С" HorizontalAlignment="Left" Margin="198,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbEast" Content="В" HorizontalAlignment="Left" Margin="314,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbSouth" Content="Ю" HorizontalAlignment="Left" Margin="198,239,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbWest" Content="З" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Center" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbNorthWest" Content="СЗ" HorizontalAlignment="Left" Margin="91,46,0,0" VerticalAlignment="Top" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbSouthWest" Content="ЮЗ" HorizontalAlignment="Left" Margin="88,194,0,0" VerticalAlignment="Top" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbNorthEast" Content="СВ" HorizontalAlignment="Left" Margin="273,46,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbSouthEast" Content="ЮВ" HorizontalAlignment="Left" Margin="273,194,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="rbNorth" Content="С" HorizontalAlignment="Left" Margin="198,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbNorth_Checked"/>
+                    <RadioButton x:Name="rbEast" Content="В" HorizontalAlignment="Left" Margin="314,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Checked="rbEast_Checked"/>
+                    <RadioButton x:Name="rbSouth" Content="Ю" HorizontalAlignment="Left" Margin="198,239,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbSouth_Checked"/>
+                    <RadioButton x:Name="rbWest" Content="З" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Center" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center" Checked="rbWest_Checked"/>
+                    <RadioButton x:Name="rbNorthWest" Content="СЗ" HorizontalAlignment="Left" Margin="91,46,0,0" VerticalAlignment="Top" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center" Checked="rbNorthWest_Checked"/>
+                    <RadioButton x:Name="rbSouthWest" Content="ЮЗ" HorizontalAlignment="Left" Margin="88,194,0,0" VerticalAlignment="Top" FlowDirection="RightToLeft" Padding="4,-1,0,0" VerticalContentAlignment="Center" Checked="rbSouthWest_Checked"/>
+                    <RadioButton x:Name="rbNorthEast" Content="СВ" HorizontalAlignment="Left" Margin="273,46,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbNorthEast_Checked"/>
+                    <RadioButton x:Name="rbSouthEast" Content="ЮВ" HorizontalAlignment="Left" Margin="273,194,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbSouthEast_Checked"/>
                     <Button x:Name="btnGetPeriodicityChart" Content="Расчет" HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Click="btnGetPeriodicityChart_Click" />
-                    <RadioButton x:Name="rbCalm" Content="Штили" HorizontalAlignment="Left" Margin="592,181,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton x:Name="rbCalm" Content="Штили" HorizontalAlignment="Left" Margin="424,175,0,0" VerticalAlignment="Top" IsChecked="True" Checked="rbCalm_Checked"/>
                     <TextBlock HorizontalAlignment="Left" Margin="375,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="522" FontSize="24" FontFamily="Bahnschrift SemiBold" TextAlignment="Center"><Run Text="Выбер"/><Run Language="ru-ru" Text="и"/><Run Text="те "/><Run Language="ru-ru" Text="направление ветра, для которого будет построен график повторяемости:"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="400,80,0,0" TextWrapping="Wrap" Text="Так как промежуточные направления расчитываются программой, график повторяемости для них недоступен вследствие нерепрезентативности" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Foreground="#FFBD3535"/>
+                    <Label Content="Интервал:" HorizontalAlignment="Left" Margin="595,169,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbPeriodicityTimeInterval" HorizontalAlignment="Left" Margin="712,171,0,0" VerticalAlignment="Top" Width="185" SelectionChanged="cmbPeriodicityTimeInterval_SelectionChanged"/>
                 </Grid>
             </TabItem>
             <TabItem Header="График средних значений">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="btnGetAveragesChart" Content="Расчет" HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Click="btnGetAveragesChart_Click" />
                     <Label Content="Метеопараметр:" HorizontalAlignment="Left" Margin="142,87,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cmbParameter" HorizontalAlignment="Left" Margin="142,123,0,0" VerticalAlignment="Top" Width="269"/>
+                    <ComboBox x:Name="cmbParameter" HorizontalAlignment="Left" Margin="142,123,0,0" VerticalAlignment="Top" Width="269" SelectionChanged="cmbParameter_SelectionChanged"/>
                     <Label Content="Интервал:" HorizontalAlignment="Left" Margin="498,87,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cmbTimeInterval" HorizontalAlignment="Left" Margin="498,123,0,0" VerticalAlignment="Top" Width="269"/>
+                    <ComboBox x:Name="cmbTimeInterval" HorizontalAlignment="Left" Margin="498,123,0,0" VerticalAlignment="Top" Width="269" SelectionChanged="cmbTimeInterval_SelectionChanged"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Роза ветров">
                 <Grid Background="#FFE5E5E5">
-                    <CheckBox x:Name="chkDistributeCalm" Content="Распределить штили" HorizontalAlignment="Left" Margin="507,49,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chkDistributeCalm" Content="Распределить штили" HorizontalAlignment="Left" Margin="507,49,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkDistributeCalm_Checked" Unchecked="chkDistributeCalm_Unchecked"/>
                     <Label Content="Количество румбов:" HorizontalAlignment="Left" Margin="211,25,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rb8Directions" Content="8" HorizontalAlignment="Left" Margin="250,66,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" RenderTransformOrigin="0.606,0.454" IsChecked="False"/>
-                    <RadioButton x:Name="rb16Directions" Content="16" HorizontalAlignment="Left" Margin="341,66,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="rb8Directions" Content="8" HorizontalAlignment="Left" Margin="250,66,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" RenderTransformOrigin="0.606,0.454" IsChecked="True" Checked="rb8Directions_Checked"/>
+                    <RadioButton x:Name="rb16Directions" Content="16" HorizontalAlignment="Left" Margin="341,66,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rb16Directions_Checked"/>
                     <Button x:Name="btnGetWindRose" Content="Расчет" HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Click="btnGetWindRose_Click" />
                     <TextBlock HorizontalAlignment="Center" Margin="0,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Foreground="#FFBD3535" Height="91" Width="710"><Run Text="Учтите, что перевод розы из восьми- в шестнадцатирумбовую, как и распределение штилей"/><Run Language="ru-ru" Text=","/><Run Text=" осуществляется программным путем, а потому график, полученный по таким параметрам"/><Run Language="ru-ru" Text=","/><Run Text=" не полностью точно от"/><Run Text="ображает полученные из Интернета данные"/><Run Language="ru-ru" Text=" ВМО"/></TextBlock>
                 </Grid>
             </TabItem>
             <TabItem Header="Штили">
                 <Grid Background="#FFE5E5E5">
-                    <CheckBox x:Name="chkGetCalmCount" Content="Подсчитать количество" HorizontalAlignment="Left" Margin="138,76,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" HorizontalAlignment="Left" Margin="514,76,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chkGetCalmCount" Content="Подсчитать количество" HorizontalAlignment="Left" Margin="138,76,0,0" VerticalAlignment="Top" IsChecked="False" VerticalContentAlignment="Center" Checked="chkGetCalmCount_Checked" Unchecked="chkGetCalmCount_Unchecked"/>
+                    <CheckBox x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" HorizontalAlignment="Left" Margin="514,76,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="chkGetCalmPeriodicity_Checked" Unchecked="chkGetCalmPeriodicity_Unchecked"/>
                     <Button x:Name="btnGetCalmStats" Content="Расчет" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Click="btnGetCalmStats_Click" />
-                    <TextBox x:Name="txtCalmCount" HorizontalAlignment="Left" Margin="138,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="262" IsEnabled="False" Text="36"/>
+                    <TextBox x:Name="txtCalmCount" HorizontalAlignment="Left" Margin="138,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="262" IsEnabled="False"/>
                     <TextBox x:Name="txtCalmPeriodicity" HorizontalAlignment="Left" Margin="514,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="298" IsEnabled="False"/>
                 </Grid>
             </TabItem>

@@ -24,23 +24,13 @@ namespace WeatherAnalytics.View
     /// <summary>
     /// Логика взаимодействия для DisplayWindow.xaml
     /// </summary>
-    public partial class DisplayWindow : Window
+    public partial class DisplayChartWindow : Window
     {
-        public DisplayWindow()
+        public DisplayChartWindow(string title, Dictionary<DateTime,decimal> data)
         {
             InitializeComponent();
-        }
-
-        public DisplayWindow(string title, DataTable table)
-        {
-            DataGrid grid = new DataGrid();
-            viewer.Content = grid;
-        }
-
-        public DisplayWindow(string title, Dictionary<DateTime, decimal> data)
-        {
-            InitializeComponent();
-            this.DataContext = new DisplayWindowGraphViewModel(title,data);
+            this.DataContext = new DisplayChartWindowViewModel(title, data);
+            this.Title = title;
         }
     }
 }

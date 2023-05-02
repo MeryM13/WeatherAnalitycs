@@ -9,8 +9,6 @@
 
     <Grid>
         <TextBlock x:Name="WindowTitle" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="30" TextAlignment="Center" Height="110"><Run Language="ru-ru" Text="Таблица метеоданных"/><Run Text=" для "/><Run Text="станции "/><Run Text="Иркутск (30710)"/><Run Text=" за период с "/><Run Text="01.03.2019"/><Run Text=" до "/><Run Text="02.04.202"/><Run Text="1"/></TextBlock>
-        <ScrollViewer x:Name="Viewer" Margin="0,120,0,0" HorizontalScrollBarVisibility="Visible" BorderThickness="1,1,1,1" BorderBrush="Black">
-            <DataGrid x:Name="Grid"/>
-        </ScrollViewer>
+        <DataGrid x:Name="Grid" Margin="0,89,0,0"/>
     </Grid>
 </Window>

@@ -8,8 +8,8 @@
         Title="AddStationWindow" Height="250" Width="800">
     <Grid>
         <Label Content="Добавить станцию" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" IsEnabled="False" FontSize="36" FontFamily="Bahnschrift SemiBold" Foreground="Black"/>
-        <TextBox x:Name="txtStationID" HorizontalAlignment="Left" Margin="227,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="478"  FontSize="22" FontFamily="Bahnschrift SemiLight"/>
-        <Label Content="Код или название:" HorizontalAlignment="Left" Margin="23,68,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Bahnschrift SemiLight"/>
+        <TextBox x:Name="txtStationID" HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="536"  FontSize="22" FontFamily="Bahnschrift SemiLight"/>
+        <Label Content="Индекс ВМО:" HorizontalAlignment="Left" Margin="23,68,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Bahnschrift SemiLight"/>
         <Button x:Name="btnSearch" Content="Поиск" HorizontalAlignment="Left" Margin="710,71,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" Background="White" Click="btnSearch_Click"/>
         <Button x:Name="btnCancel" Content="Отмена" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" Background="White" Click="btnCancel_Click"/>
         <Button x:Name="btnAdd" Content="Добавить" HorizontalAlignment="Right" Margin="0,0,95,10" VerticalAlignment="Bottom" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" Background="White" IsEnabled="False" Click="btnAdd_Click"/>
