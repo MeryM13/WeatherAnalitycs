@@ -19,12 +19,9 @@ namespace WeatherAnalytics.View
     /// </summary>
     public partial class ProgressBarWindow : Window
     {
-        public ProgressBarWindow(Action action)
+        public ProgressBarWindow()
         {
             InitializeComponent();
-            this.Show();
-            action();
-            this.Close();
         }
     }
 }

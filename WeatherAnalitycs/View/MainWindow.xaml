@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeatherAnalitycs.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="540" Width="960">
+        Title="Метеоархив" Height="540" Width="960">
     <Grid>
         <Label Content="Метеорологический архив" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" IsEnabled="False" FontSize="36" FontFamily="Bahnschrift SemiBold" Foreground="Black"/>
         <Button x:Name="btnUpdate" Content="Обновить данные" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Bahnschrift SemiLight" Foreground="Black" Background="White" Click="btnUpdate_Click"/>
@@ -40,7 +40,7 @@
             </TabItem>
             <TabItem Header="График повторяемости">
                 <Grid Background="#FFE5E5E5">
-                    <Image Height="NaN" Margin="83,10,593,10" Source="/Rose.png" Stretch="Fill" Width="NaN" IsEnabled="False" OpacityMask="Black"/>
+                    <Image HorizontalAlignment="Left" Height="250" Margin="80,10,0,0" VerticalAlignment="Top" Width="250" Source="/Rose.png" RenderTransformOrigin="0.484,0.504"/>
                     <RadioButton x:Name="rbNorth" Content="С" HorizontalAlignment="Left" Margin="198,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbNorth_Checked"/>
                     <RadioButton x:Name="rbEast" Content="В" HorizontalAlignment="Left" Margin="314,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Checked="rbEast_Checked"/>
                     <RadioButton x:Name="rbSouth" Content="Ю" HorizontalAlignment="Left" Margin="198,239,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Checked="rbSouth_Checked"/>

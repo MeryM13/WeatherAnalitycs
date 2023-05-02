@@ -21,7 +21,7 @@ namespace WeatherAnalytics.View
     /// </summary>
     public partial class AddStationWindow : Window
     {
-        WeatherClasses.Station _station;
+        WeatherClasses.Station _station = new();
         Parser _parser;
         public AddStationWindow()
         {
@@ -50,12 +50,15 @@ namespace WeatherAnalytics.View
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var result = MessageBox.Show($"Вы уверены что хотите добавить станцию {_station.Name}? Добавление запустит процесс парсинга всех имеющихся метеоданных этой станции, что может быть долгим процессом. Процесс парсинга не должен прерываться.", $"Добавить станцию {_station.Name}", MessageBoxButton.YesNoCancel);
-                ProgressBarWindow progress = new(() => _parser.AddStation(_station));
+                ProgressBarWindow progress = new();
+                progress.Show();
+                await Task.Run(() => _parser.AddStation(_station));
+                progress.Close();
                 this.Close();
             }
             catch (Exception ex)

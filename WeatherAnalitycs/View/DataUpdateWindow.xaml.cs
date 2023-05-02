@@ -82,30 +82,36 @@ namespace WeatherAnalytics.View
             _doFullUpdate = false;
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private async void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (_doFullUpdate)
             {
                 var result = MessageBox.Show("Вы уверены, что хотите обновить информацию о метеоданных для всех станций? \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
-                    ProgressBarWindow progress = new(() => _parser.FullUpdate());
+                    ProgressBarWindow progress = new();
+                    progress.Show();
+                    await Task.Run(() => _parser.FullUpdate());
+                    progress.Close();
                     this.Close();
                 }
             }
             else
             {
-                string stations = _updateStations.ToString();
                 var result = MessageBox.Show($"Вы уверены, что хотите обновить информацию о метеоданных для следующих станций: {String.Join(',', _updateStations)} \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
-                    ProgressBarWindow progress = new(() =>
+                    ProgressBarWindow progress = new();
+                    progress.Show();
+                    await Task.Run(() =>
                     {
                         foreach (int station in _updateStations)
                         {
                             _parser.UpdateStationData(station);
                         }
                     });
+                    progress.Close();
+
                     this.Close();
                 }
             }

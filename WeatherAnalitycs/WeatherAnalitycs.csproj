@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Rose.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
     <PackageReference Include="LiveChartsCore" Version="2.0.0-beta.701" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.701" />
@@ -19,6 +23,10 @@
     <Reference Include="WeatherDataParser">
       <HintPath>..\..\WeatherDataParser\WeatherDataParser\bin\Debug\net6.0\WeatherDataParser.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Rose.png" />
   </ItemGroup>
 
 </Project>
