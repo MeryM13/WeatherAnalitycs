@@ -5,12 +5,8 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Rose.png" />
-  </ItemGroup>
-
+  </PropertyGroup>    
+	
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
     <PackageReference Include="LiveChartsCore" Version="2.0.0-beta.701" />
@@ -18,7 +14,7 @@
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.701" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Reference Include="WeatherDataParser">
       <HintPath>..\..\WeatherDataParser\WeatherDataParser\bin\Debug\net6.0\WeatherDataParser.dll</HintPath>

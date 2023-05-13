@@ -4,8 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Идет загрузка данных" Height="100" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Идет загрузка данных" Height="220" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/StyleDictionary.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        <ProgressBar HorizontalAlignment="Center" Height="50" Margin="0,10,0,0" Minimum="0" Maximum="0" VerticalAlignment="Top" Width="360" IsIndeterminate="True"/>
+        <TextBlock Style="{StaticResource UCLabel}" Text="Идет загрузка данных, пожалуйста, подождите"/>
+        <TextBlock Style="{StaticResource WarningText}" Text="Прерывание процесса может привести к ошибкам, пожалуйста, дождитесь завершения загрузки." Margin="10,56,10,0"/>
+        <ProgressBar HorizontalAlignment="Stretch" Height="50" Margin="10,0,10,10" VerticalAlignment="Bottom" IsIndeterminate="True"/>
     </Grid>
 </Window>

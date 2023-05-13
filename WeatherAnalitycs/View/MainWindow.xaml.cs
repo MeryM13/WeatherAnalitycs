@@ -1,62 +1,56 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WeatherAnalitycs.View;
-using WeatherAnalytics.View;
 using WeatherDataParser;
-using WeatherDataParser.CLASSES;
 
 namespace WeatherAnalytics.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        Parser _parser;
+        readonly Parser _parser;
         Statistics _stat;
         int _stationID;
         string _stationName;
         DateTime _from = new(2012,01,01);
         DateTime _to = DateTime.Now;
+        readonly Dictionary<string,Parameter> parameterDict = new()
+        {
+            {"Скорость ветра", Parameter.Wind_Speed },
+            {"Температура воздуха", Parameter.Temperature },
+            {"Относительная влажность воздуха", Parameter.Humidity },
+            {"Атмосферное давление", Parameter.Pressure },
+            {"Высота снежного покрова", Parameter.Snow_Height },
+        };
+        readonly Dictionary<string, DateInterval> intervalDict = new()
+        {
+            {"День", DateInterval.Day },
+            {"Неделя", DateInterval.WeekOfYear },
+            {"Месяц", DateInterval.Month },
+            {"Квартал", DateInterval.Quarter },
+            {"Год", DateInterval.Year },
+        };
+
         public MainWindow()
         {
             InitializeComponent();
+
             _parser = new Parser();
             UpdateStationCmb();
             dateFrom.Text = _from.ToString();
             dateTo.Text = _to.ToString();
             _stat = new(_from,_to,_stationID);
 
-            cmbParameter.Items.Add(Parameter.Wind_Speed);
-            cmbParameter.Items.Add(Parameter.Temperature);
-            cmbParameter.Items.Add(Parameter.Humidity);
-            cmbParameter.Items.Add(Parameter.Pressure);
-            cmbParameter.Items.Add(Parameter.Snow_Height);
+            foreach (string parameterName in parameterDict.Keys)
+                cmbParameter.Items.Add(parameterName);
 
-            cmbTimeInterval.Items.Add(DateInterval.Day);
-            cmbTimeInterval.Items.Add(DateInterval.WeekOfYear);
-            cmbTimeInterval.Items.Add(DateInterval.Month);
-            cmbTimeInterval.Items.Add(DateInterval.Quarter);
-            cmbTimeInterval.Items.Add(DateInterval.Year);
-
-            cmbPeriodicityTimeInterval.Items.Add(DateInterval.Day);
-            cmbPeriodicityTimeInterval.Items.Add(DateInterval.WeekOfYear);
-            cmbPeriodicityTimeInterval.Items.Add(DateInterval.Month);
-            cmbPeriodicityTimeInterval.Items.Add(DateInterval.Quarter);
-            cmbPeriodicityTimeInterval.Items.Add(DateInterval.Year);
+            foreach (string intervalName in intervalDict.Keys)
+            {
+                cmbTimeInterval.Items.Add(intervalName);
+                cmbPeriodicityTimeInterval.Items.Add(intervalName);
+            }
         }
 
         bool _updating = false;
@@ -73,7 +67,7 @@ namespace WeatherAnalytics.View
         }
 
         //Setting params
-        private void cmbStations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbStations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!_updating)
             {
@@ -83,39 +77,39 @@ namespace WeatherAnalytics.View
                 _stat = new(_from, _to, _stationID);
             }
         }
-        private void dateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             _from = (DateTime)dateFrom.SelectedDate;
             _stat = new(_from, _to, _stationID);
         }
-        private void dateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             _to = (DateTime)dateTo.SelectedDate;
             _stat = new(_from, _to, _stationID);
         }
 
         //Buttons generic
-        private void btnAddStation_Click(object sender, RoutedEventArgs e)
+        private void BtnAddStation_Click(object sender, RoutedEventArgs e)
         {
-            AddStationWindow addStationWindow = new AddStationWindow();
+            AddStationWindow addStationWindow1 = new();
+            AddStationWindow addStationWindow = addStationWindow1;
             addStationWindow.ShowDialog();
             UpdateStationCmb();
         }
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            DataUpdateWindow dataUpdateWindow = new DataUpdateWindow();
+            DataUpdateWindow dataUpdateWindow = new();
             dataUpdateWindow.ShowDialog();
         }
-
         
         //Periodicity chart
         decimal? _direction = null;
         DateInterval _periodicityInterval = DateInterval.Month;
-        private void btnGetPeriodicityChart_Click(object sender, RoutedEventArgs e)
+        private void BtnGetPeriodicityChart_Click(object sender, RoutedEventArgs e)
         {
             string directionName = "";
             switch (_direction)
@@ -166,65 +160,65 @@ namespace WeatherAnalytics.View
                         break;
                     }
             }
-            string title = $"График повторяемости {directionName} для станции {_stationName} за период с {_from.ToString("d")} до {_to.ToString("d")}";
-            DisplayChartWindow window = new DisplayChartWindow(title, _stat.GetWindPeriodicityChart(_direction,_periodicityInterval));
+            string title = $"График повторяемости {directionName} для станции {_stationName} за период с {_from:d} до {_to:d}";
+            DisplayWindow window = new(title, _stat.GetWindPeriodicityChart(_direction, _periodicityInterval));
             window.Show();
         }
 
-        private void rbCalm_Checked(object sender, RoutedEventArgs e)
+        private void RbCalm_Checked(object sender, RoutedEventArgs e)
         {
             _direction = null;
         }
 
-        private void rbNorth_Checked(object sender, RoutedEventArgs e)
+        private void RbNorth_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 0;
         }
 
-        private void rbNorthEast_Checked(object sender, RoutedEventArgs e)
+        private void RbNorthEast_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 45;
         }
 
-        private void rbEast_Checked(object sender, RoutedEventArgs e)
+        private void RbEast_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 90;
         }
 
-        private void rbSouthEast_Checked(object sender, RoutedEventArgs e)
+        private void RbSouthEast_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 135;
         }
 
-        private void rbSouth_Checked(object sender, RoutedEventArgs e)
+        private void RbSouth_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 180;
         }
 
-        private void rbSouthWest_Checked(object sender, RoutedEventArgs e)
+        private void RbSouthWest_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 225;
         }
 
-        private void rbWest_Checked(object sender, RoutedEventArgs e)
+        private void RbWest_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 270;
         }
 
-        private void rbNorthWest_Checked(object sender, RoutedEventArgs e)
+        private void RbNorthWest_Checked(object sender, RoutedEventArgs e)
         {
             _direction = 315;
         }
 
-        private void cmbPeriodicityTimeInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbPeriodicityTimeInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _periodicityInterval = (DateInterval)cmbPeriodicityTimeInterval.SelectedValue;
+            _periodicityInterval = intervalDict[cmbPeriodicityTimeInterval.SelectedValue.ToString()];
         }
 
         //Averages chart
         Parameter _parameter = Parameter.Temperature;
         DateInterval _averagesInterval = DateInterval.Month;
-        private void btnGetAveragesChart_Click(object sender, RoutedEventArgs e)
+        private void BtnGetAveragesChart_Click(object sender, RoutedEventArgs e)
         {
             string average = "";
             switch (_averagesInterval)
@@ -284,47 +278,47 @@ namespace WeatherAnalytics.View
                         break;
                     }
             }
-            string title = $"График среднe{average} значений {parameterName} для станции {_stationName} за период с {_from.ToString("d")} до {_to.ToString("d")}";
-            DisplayChartWindow window = new DisplayChartWindow(title, _stat.GetAveragesChart(_parameter, _averagesInterval));
+            string title = $"График среднe{average} значений {parameterName} для станции {_stationName} за период с {_from:d} до {_to:d}";
+            DisplayWindow window = new(title, _stat.GetAveragesChart(_parameter, _averagesInterval));
             window.Show();
         }
 
-        private void cmbParameter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbParameter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _parameter = (Parameter)cmbParameter.SelectedValue;
+            _parameter = parameterDict[cmbParameter.SelectedValue.ToString()];
         }
 
-        private void cmbTimeInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbTimeInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _averagesInterval = (DateInterval)cmbTimeInterval.SelectedValue;
+            _averagesInterval = intervalDict[cmbTimeInterval.SelectedValue.ToString()];
         }
 
         //Wind rose
         int _numberOfDirections = 8;
         bool _distributeCalm = false;
-        private void btnGetWindRose_Click(object sender, RoutedEventArgs e)
+        private void BtnGetWindRose_Click(object sender, RoutedEventArgs e)
         {
-            string title = $"{_numberOfDirections}-румбовая роза ветров {(_distributeCalm? "с распределением штилей" : "без распределения штилей")} для станции {_stationName} за период с {_from.ToString("d")} до {_to.ToString("d")}";
-            DisplayRoseWindow window = new DisplayRoseWindow(title, _stat.GetWindRose(_distributeCalm, _numberOfDirections));
+            string title = $"{_numberOfDirections}-румбовая роза ветров {(_distributeCalm? "с распределением штилей" : "без распределения штилей")} для станции {_stationName} за период с {_from:d} до {_to:d}";
+            DisplayWindow window = new(title, _stat.GetWindRose(_distributeCalm, _numberOfDirections));
             window.Show();
         }
 
-        private void rb8Directions_Checked(object sender, RoutedEventArgs e)
+        private void Rb8Directions_Checked(object sender, RoutedEventArgs e)
         {
             _numberOfDirections = 8;
         }
 
-        private void rb16Directions_Checked(object sender, RoutedEventArgs e)
+        private void Rb16Directions_Checked(object sender, RoutedEventArgs e)
         {
             _numberOfDirections = 16;
         }
 
-        private void chkDistributeCalm_Checked(object sender, RoutedEventArgs e)
+        private void ChkDistributeCalm_Checked(object sender, RoutedEventArgs e)
         {
             _distributeCalm = true;
         }
 
-        private void chkDistributeCalm_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkDistributeCalm_Unchecked(object sender, RoutedEventArgs e)
         {
             _distributeCalm = false;
         }
@@ -335,7 +329,7 @@ namespace WeatherAnalytics.View
         int _calmCount = 0;
         decimal _calmPeriodicity = 0;
 
-        private void btnGetCalmStats_Click(object sender, RoutedEventArgs e)
+        private void BtnGetCalmStats_Click(object sender, RoutedEventArgs e)
         {
             if (_getCount)
             {
@@ -360,40 +354,40 @@ namespace WeatherAnalytics.View
             }
         }
 
-        private void chkGetCalmCount_Checked(object sender, RoutedEventArgs e)
+        private void ChkGetCalmCount_Checked(object sender, RoutedEventArgs e)
         {
             _getCount = true;
         }
 
-        private void chkGetCalmCount_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkGetCalmCount_Unchecked(object sender, RoutedEventArgs e)
         {
             _getCount = false;
         }
 
-        private void chkGetCalmPeriodicity_Checked(object sender, RoutedEventArgs e)
+        private void ChkGetCalmPeriodicity_Checked(object sender, RoutedEventArgs e)
         {
             _getPeriodicity = true;
         }
 
-        private void chkGetCalmPeriodicity_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkGetCalmPeriodicity_Unchecked(object sender, RoutedEventArgs e)
         {
             _getPeriodicity = false;
         }
 
         //Table
-        List<Parameter> _parameters = new List<Parameter>();
+        readonly List<Parameter> _parameters = new();
         bool _useStationName = false;
         bool _divideDateAndTime = true;
         bool _dateOnly = false;
-        private void btnGetTable_Click(object sender, RoutedEventArgs e)
+        private void BtnGetTable_Click(object sender, RoutedEventArgs e)
         {
-            string title = $"Таблица метеоданных для станции {_stationName} за период с {_from.ToString("d")} до {_to.ToString("d")}";
+            string title = $"Таблица метеоданных для станции {_stationName} за период с {_from:d} до {_to:d}";
 
-            DisplayTableWindow window = new DisplayTableWindow(_stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly), title);
+            DisplayWindow window = new(title, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
             window.Show();
         }
 
-        private void chkStationName_Checked(object sender, RoutedEventArgs e)
+        private void ChkStationName_Checked(object sender, RoutedEventArgs e)
         {
             chkStationID.IsChecked = false;
             if (!_parameters.Contains(Parameter.Station))
@@ -403,7 +397,7 @@ namespace WeatherAnalytics.View
             _useStationName = true;
         }
 
-        private void chkStationName_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkStationName_Unchecked(object sender, RoutedEventArgs e)
         {
             if (_parameters.Contains(Parameter.Station))
             {
@@ -412,7 +406,7 @@ namespace WeatherAnalytics.View
             _useStationName = false;
         }
 
-        private void chkStationID_Checked(object sender, RoutedEventArgs e)
+        private void ChkStationID_Checked(object sender, RoutedEventArgs e)
         {
             chkStationName.IsChecked = false;
             if (!_parameters.Contains(Parameter.Station))
@@ -420,7 +414,7 @@ namespace WeatherAnalytics.View
                 _parameters.Add(Parameter.Station);
             }
         }
-        private void chkStationID_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkStationID_Unchecked(object sender, RoutedEventArgs e)
         {
             if (_parameters.Contains(Parameter.Station))
             {
@@ -428,7 +422,7 @@ namespace WeatherAnalytics.View
             }
         }
 
-        private void chkDate_Checked(object sender, RoutedEventArgs e)
+        private void ChkDate_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Date);
             chkTime.IsEnabled = true;
@@ -436,7 +430,7 @@ namespace WeatherAnalytics.View
             _dateOnly = true;
         }
 
-        private void chkDate_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkDate_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Date);
             chkTime.IsChecked = false;
@@ -445,87 +439,87 @@ namespace WeatherAnalytics.View
             chkDateAndTime.IsEnabled = false;
         }
 
-        private void chkTime_Checked(object sender, RoutedEventArgs e)
+        private void ChkTime_Checked(object sender, RoutedEventArgs e)
         {
             _dateOnly = false;
             _divideDateAndTime = true;
             chkDateAndTime.IsEnabled = true;
         }
 
-        private void chkTime_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkTime_Unchecked(object sender, RoutedEventArgs e)
         {
             _dateOnly = true;
             chkDateAndTime.IsChecked = false;
             chkDateAndTime.IsEnabled = false;
         }
 
-        private void chkDateAndTime_Checked(object sender, RoutedEventArgs e)
+        private void ChkDateAndTime_Checked(object sender, RoutedEventArgs e)
         {
             _divideDateAndTime = false;
             _dateOnly = false;
         }
 
-        private void chkDateAndTime_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkDateAndTime_Unchecked(object sender, RoutedEventArgs e)
         {
             _divideDateAndTime = true;
         }
 
-        private void chkWindDirection_Checked(object sender, RoutedEventArgs e)
+        private void ChkWindDirection_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Wind_Direction);
         }
 
-        private void chkWindDirection_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkWindDirection_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Wind_Direction);
         }
 
-        private void chkWindSpeed_Checked(object sender, RoutedEventArgs e)
+        private void ChkWindSpeed_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Wind_Speed);
         }
 
-        private void chkWindSpeed_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkWindSpeed_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Wind_Speed);
         }
 
-        private void chkTemperature_Checked(object sender, RoutedEventArgs e)
+        private void ChkTemperature_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Temperature);
         }
 
-        private void chkTemperature_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkTemperature_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Temperature);
         }
 
-        private void chkHumidity_Checked(object sender, RoutedEventArgs e)
+        private void ChkHumidity_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Humidity);
         }
 
-        private void chkHumidity_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkHumidity_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Humidity);
         }
 
-        private void chkPressure_Checked(object sender, RoutedEventArgs e)
+        private void ChkPressure_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Pressure);
         }
 
-        private void chkPressure_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkPressure_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Pressure);
         }
 
-        private void chkSnowHeight_Checked(object sender, RoutedEventArgs e)
+        private void ChkSnowHeight_Checked(object sender, RoutedEventArgs e)
         {
             _parameters.Add(Parameter.Snow_Height);
         }
 
-        private void chkSnowHeight_Unchecked(object sender, RoutedEventArgs e)
+        private void ChkSnowHeight_Unchecked(object sender, RoutedEventArgs e)
         {
             _parameters.Remove(Parameter.Snow_Height);
         }
