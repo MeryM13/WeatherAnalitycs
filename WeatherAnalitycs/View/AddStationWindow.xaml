@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/StyleDictionary.xaml">
+                <ResourceDictionary Source="/StrictStyleDictionary.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -20,7 +20,7 @@
 
         <Label Content="Индекс ВМО:" HorizontalAlignment="Left" Margin="23,68,0,0" VerticalAlignment="Top"/>
         
-        <TextBox x:Name="txtStationID" Margin="164,71,95,0" Height="30"/>
+        <TextBox x:Name="txtStationID" Margin="164,71,95,0" Height="30" Text="{Binding StationID}"/>
 
         <TextBlock x:Name="txtInfo" Style="{StaticResource InformationField}" Margin="25,106,25,45" Text="Название станции: Расположение: Географические координаты: широта: долгота: Высота над уровнем моря:"/>
 

@@ -77,7 +77,7 @@ namespace WeatherAnalytics.View
         {
             if (_doFullUpdate)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите обновить информацию о метеоданных для всех станций? \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
+                var result = MessageBox.Show("Вы уверены, что хотите обновить информацию о метеоданных для всех станций? \nДанное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
                     ProgressBarWindow progress = new();
@@ -89,7 +89,7 @@ namespace WeatherAnalytics.View
             }
             else
             {
-                var result = MessageBox.Show($"Вы уверены, что хотите обновить информацию о метеоданных для следующих станций: {String.Join(',', _updateStations)} \n Данное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
+                var result = MessageBox.Show($"Вы уверены, что хотите обновить информацию о метеоданных для следующих станций: {String.Join(',', _updateStations)} \nДанное действие может занять много времени и не должно прерываться", "Обновление данных", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
                     ProgressBarWindow progress = new();

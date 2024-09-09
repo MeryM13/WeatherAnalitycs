@@ -3,11 +3,6 @@ using LiveChartsCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeatherDataParser;
-using Microsoft.VisualBasic;
-using System.Windows.Controls;
 
 namespace WeatherAnalitycs.ViewModel
 {

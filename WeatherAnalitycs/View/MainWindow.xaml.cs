@@ -35,21 +35,33 @@ namespace WeatherAnalytics.View
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            _parser = new Parser();
-            UpdateStationCmb();
-            dateFrom.Text = _from.ToString();
-            dateTo.Text = _to.ToString();
-            _stat = new(_from,_to,_stationID);
-
-            foreach (string parameterName in parameterDict.Keys)
-                cmbParameter.Items.Add(parameterName);
-
-            foreach (string intervalName in intervalDict.Keys)
+            try
             {
-                cmbTimeInterval.Items.Add(intervalName);
-                cmbPeriodicityTimeInterval.Items.Add(intervalName);
+                InitializeComponent();
+
+                _parser = new Parser();
+                UpdateStationCmb();
+                dateFrom.Text = _from.ToString();
+                dateTo.Text = _to.ToString();
+                _stat = new(_from, _to, _stationID);
+
+                foreach (string parameterName in parameterDict.Keys)
+                    cmbParameter.Items.Add(parameterName);
+
+                foreach (string intervalName in intervalDict.Keys)
+                {
+                    cmbTimeInterval.Items.Add(intervalName);
+                    cmbPeriodicityTimeInterval.Items.Add(intervalName);
+                }
+
+                cmbParameter.SelectedItem = "Температура воздуха";
+                cmbTimeInterval.SelectedItem = "Квартал";
+                cmbPeriodicityTimeInterval.SelectedItem = "Квартал";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла ошибка");
+                Environment.Exit(0);
             }
         }
 
@@ -98,7 +110,7 @@ namespace WeatherAnalytics.View
         }
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Environment.Exit(0);
         }
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -160,7 +172,36 @@ namespace WeatherAnalytics.View
                         break;
                     }
             }
-            string title = $"График повторяемости {directionName} для станции {_stationName} за период с {_from:d} до {_to:d}";
+            string periodName = "";
+            switch (_periodicityInterval)
+            {
+                case DateInterval.Day:
+                    {
+                        periodName = "день";
+                        break;
+                    }
+                case DateInterval.WeekOfYear:
+                    {
+                        periodName = "неделя";
+                        break;
+                    }
+                case DateInterval.Month:
+                    {
+                        periodName = "месяц";
+                        break;
+                    }
+                case DateInterval.Quarter:
+                    {
+                        periodName = "квартал";
+                        break;
+                    }
+                case DateInterval.Year:
+                    {
+                        periodName = "год";
+                        break;
+                    }
+            }
+            string title = $"График повторяемости {directionName} с интервалом {periodName} для станции {_stationName} за период с {_from:d} до {_to:d}";
             DisplayWindow window = new(title, _stat.GetWindPeriodicityChart(_direction, _periodicityInterval));
             window.Show();
         }
@@ -381,6 +422,12 @@ namespace WeatherAnalytics.View
         bool _dateOnly = false;
         private void BtnGetTable_Click(object sender, RoutedEventArgs e)
         {
+            if (_parameters.Count == 0)
+            {
+                MessageBox.Show("Выберите столбцы для построения таблицы");
+                return;
+            }
+
             string title = $"Таблица метеоданных для станции {_stationName} за период с {_from:d} до {_to:d}";
 
             DisplayWindow window = new(title, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));

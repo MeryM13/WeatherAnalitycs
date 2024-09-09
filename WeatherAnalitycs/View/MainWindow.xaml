@@ -10,7 +10,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/StyleDictionary.xaml">
+                <ResourceDictionary Source="/StrictStyleDictionary.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -61,7 +61,7 @@
             </TabItem>
             <TabItem Header="График повторяемости">
                 <Grid Background="#FFE5E5E5">
-                    <Image HorizontalAlignment="Left" Height="250" Margin="51,10,0,0" VerticalAlignment="Top" Width="250" Source="/Rose.png"/>
+                    <Image HorizontalAlignment="Left" Height="250" Margin="51,10,0,0" VerticalAlignment="Top" Width="250" Source="//Rose.png"/>
 
                     <Label Content="Интервал:" Margin="566,169,0,0" VerticalAlignment="Top"/>
 
@@ -101,7 +101,7 @@
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="Задайте параметры графика:" Width="780" Style="{StaticResource UCLabel}"/>
 
-                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource WarningText}" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Foreground="#FFBD3535" Height="91" Width="710"><Run Text="Учтите, что перевод розы из восьми- в шестнадцатирумбовую, как и распределение штилей"/><Run Language="ru-ru" Text=","/><Run Text=" осуществляется программным путем, а потому график, полученный по таким параметрам"/><Run Language="ru-ru" Text=","/><Run Text=" не полностью точно от"/><Run Text="ображает полученные из Интернета данные"/><Run Language="ru-ru" Text=" ВМО"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource WarningText}" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Foreground="#FFBD3535" Height="91" Width="710" Text="Примечание: перевод розы из восьми- в шестнадцатирумбовую, как и распределение штилей, осуществляется программным путем, а потому график, полученный по таким параметрам, может неточно ображать полученные из Интернета данные"/>
 
                     <Label Content="Количество румбов:" Margin="211,46,0,0" VerticalAlignment="Top"/>
 
