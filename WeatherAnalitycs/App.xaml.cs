@@ -17,6 +17,9 @@ namespace WeatherAnalitycs
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            WeatherAnalitycsWindow main = new();
+            main.Show();
+
             base.OnStartup(e);
 
             LiveCharts.Configure(config =>

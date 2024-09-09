@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WeatherAnalitycs
+namespace WeatherAnalitycs.View.TabControlItems
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для TabItemTableView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TabItemTableView : UserControl
     {
-        public MainWindow()
+        public TabItemTableView()
         {
             InitializeComponent();
         }

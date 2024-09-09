@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\TabControlItems\" />
     <Folder Include="Model\" />
   </ItemGroup>
 

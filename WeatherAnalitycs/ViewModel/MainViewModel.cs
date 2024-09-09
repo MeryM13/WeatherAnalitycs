@@ -10,6 +10,7 @@ using WeatherAnalytics.View;
 using WeatherDataParser.CLASSES;
 using WeatherAnalitycs.Utility;
 using WeatherDataParser;
+using WeatherAnalitycs.ViewModel.TabItems;
 
 namespace WeatherAnalitycs.ViewModel
 {
@@ -19,17 +20,19 @@ namespace WeatherAnalitycs.ViewModel
         public List<string> StationNames { get; set; }
         
         string _selectedStation;
-        public string SelectedStation { 
-            get { return _selectedStation; } 
+        public string SelectedStation
+        {
+            get { return _selectedStation; }
             set
             {
                 _selectedStation = value;
                 SearchStore.StationId = int.Parse(_selectedStation.Split('(', ')')[1]);
                 OnPropertyChanged();
-            } 
+            }
         }
-
         public SearchParamsStore SearchStore { get; set; } = new();
+
+        public TabItemTableViewModel TableViewModel { get; set; }
 
         public RelayCommand UpdateDataCommand { get; set; }
         public RelayCommand AddNewStationCommand { get; set; }
@@ -42,6 +45,8 @@ namespace WeatherAnalitycs.ViewModel
             UpdateDataCommand = new RelayCommand(UpdateData);
             AddNewStationCommand = new RelayCommand(AddNewStation);
             ExitCommand = new RelayCommand(Exit);
+
+            TableViewModel = new(SearchStore);
         }
 
         void UpdateData()
@@ -49,7 +54,6 @@ namespace WeatherAnalitycs.ViewModel
             DataUpdateWindow DUW = new();
             DUW.ShowDialog();
         }
-
         void AddNewStation()
         {
             AddStationWindow ASW = new();

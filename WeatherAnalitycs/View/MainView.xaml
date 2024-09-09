@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WeatherAnalitycs.View" 
              xmlns:viewmodel="clr-namespace:WeatherAnalitycs.ViewModel" 
+             xmlns:tabcontrolitems="clr-namespace:WeatherAnalitycs.View.TabControlItems"
              d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
              mc:Ignorable="d" 
              Background="AntiqueWhite"
@@ -80,7 +80,9 @@
         <Rectangle Grid.Row="2"/>
 
         <TabControl Grid.Row="3">
-            
+            <TabItem Header="Таблица">
+                <tabcontrolitems:TabItemTableView DataContext="{Binding TableViewModel}"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
