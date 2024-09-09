@@ -364,15 +364,20 @@ namespace WeatherAnalytics.View
             _distributeCalm = false;
         }
 
-        //Calm stats
-        bool _getCount = false;
-        bool _getPeriodicity = false;
+        //Calm and low speed winds stats
+        bool _getCalmCount = false;
+        bool _getCalmPeriodicity = false;
         int _calmCount = 0;
         decimal _calmPeriodicity = 0;
 
+        bool _getLowCount = false;
+        bool _getLowPeriodicity = false;
+        int _lowCount = 0;
+        decimal _lowPeriodicity = 0;
+
         private void BtnGetCalmStats_Click(object sender, RoutedEventArgs e)
         {
-            if (_getCount)
+            if (_getCalmCount)
             {
                 _calmCount = _stat.GetCalmCount();
                 txtCalmCount.Text = _calmCount.ToString();
@@ -383,7 +388,7 @@ namespace WeatherAnalytics.View
                 txtCalmCount.Text = string.Empty;
             }
 
-            if (_getPeriodicity)
+            if (_getCalmPeriodicity)
             {
                 _calmPeriodicity = _stat.GetCalmPeriodicity();
                 txtCalmPeriodicity.Text = _calmPeriodicity.ToString();
@@ -393,26 +398,64 @@ namespace WeatherAnalytics.View
                 _calmPeriodicity = 0;
                 txtCalmPeriodicity.Text = string.Empty;
             }
+
+            if (_getLowCount)
+            {
+                _lowCount = _stat.GetWeakCount();
+                txtLowCount.Text = _lowCount.ToString();
+            }
+            else
+            {
+                _lowCount = 0;
+                txtLowCount.Text = string.Empty;
+            }
+
+            if (_getLowPeriodicity)
+            {
+                _lowPeriodicity = _stat.GetWeakPeriodicity();
+                txtLowPeriodicity.Text = _lowPeriodicity.ToString();
+            }
+            else
+            {
+                _lowPeriodicity = 0;
+                txtLowPeriodicity.Text = string.Empty;
+            }
         }
 
+        private void chkGetLowCount_Checked(object sender, RoutedEventArgs e)
+        {
+            _getLowCount = true;
+        }
+        private void chkGetLowCount_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _getLowCount = false;
+        }
+        private void chkGetLowPeriodicity_Checked(object sender, RoutedEventArgs e)
+        {
+            _getLowPeriodicity = true;
+        }
+        private void chkGetLowPeriodicity_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _getLowPeriodicity = false;
+        }
         private void ChkGetCalmCount_Checked(object sender, RoutedEventArgs e)
         {
-            _getCount = true;
+            _getCalmCount = true;
         }
 
         private void ChkGetCalmCount_Unchecked(object sender, RoutedEventArgs e)
         {
-            _getCount = false;
+            _getCalmCount = false;
         }
 
         private void ChkGetCalmPeriodicity_Checked(object sender, RoutedEventArgs e)
         {
-            _getPeriodicity = true;
+            _getCalmPeriodicity = true;
         }
 
         private void ChkGetCalmPeriodicity_Unchecked(object sender, RoutedEventArgs e)
         {
-            _getPeriodicity = false;
+            _getCalmPeriodicity = false;
         }
 
         //Table
