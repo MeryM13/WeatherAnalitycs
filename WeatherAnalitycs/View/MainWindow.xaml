@@ -116,14 +116,18 @@
             <TabItem Header="Штили">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="Выберите необходимые параметры:" Width="780" Style="{StaticResource UCLabel}"/>
-                    
-                    <CheckBox x:Name="chkGetCalmCount" Content="Подсчитать количество" Margin="138,76,0,0" Checked="ChkGetCalmCount_Checked" Unchecked="ChkGetCalmCount_Unchecked"/>
-                    <CheckBox x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" Margin="514,76,0,0" Checked="ChkGetCalmPeriodicity_Checked" Unchecked="ChkGetCalmPeriodicity_Unchecked"/>
-                    
+
+                    <CheckBox x:Name="chkGetCalmCount" Content="Подсчитать количество" Margin="141,61,0,0" Checked="ChkGetCalmCount_Checked" Unchecked="ChkGetCalmCount_Unchecked"/>
+                    <CheckBox x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" Margin="517,61,0,0" Checked="ChkGetCalmPeriodicity_Checked" Unchecked="ChkGetCalmPeriodicity_Unchecked"/>
+
                     <Button x:Name="btnGetCalmStats" Style="{StaticResource CalculateButtons}" Content="Расчет" Click="BtnGetCalmStats_Click" />
-                    
-                    <TextBox x:Name="txtCalmCount" HorizontalAlignment="Left" Margin="138,0,0,0" VerticalAlignment="Center" Width="262" IsEnabled="False"/>
-                    <TextBox x:Name="txtCalmPeriodicity" HorizontalAlignment="Left" Margin="514,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="298" IsEnabled="False"/>
+
+                    <TextBox x:Name="txtCalmCount" HorizontalAlignment="Left" Margin="141,104,0,0" Width="262" IsEnabled="False"/>
+                    <TextBox x:Name="txtCalmPeriodicity" HorizontalAlignment="Left" Margin="517,104,0,0" TextWrapping="NoWrap" Width="298" IsEnabled="False"/>
+                    <CheckBox x:Name="chkGetLowCount" Content="Подсчитать количество" Margin="141,148,0,0" Checked="chkGetLowCount_Checked" Unchecked="chkGetLowCount_Unchecked"/>
+                    <CheckBox x:Name="chkGetLowPeriodicity" Content="Подсчитать повторяемость" Margin="517,148,0,0" Checked="chkGetLowPeriodicity_Checked" Unchecked="chkGetLowPeriodicity_Unchecked"/>
+                    <TextBox x:Name="txtLowCount" HorizontalAlignment="Left" Margin="141,191,0,0" Width="262" IsEnabled="False"/>
+                    <TextBox x:Name="txtLowPeriodicity" HorizontalAlignment="Left" Margin="517,191,0,0" TextWrapping="NoWrap" Width="298" IsEnabled="False"/>
                 </Grid>
             </TabItem>
         </TabControl>
