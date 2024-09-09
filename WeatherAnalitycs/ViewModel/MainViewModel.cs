@@ -27,12 +27,16 @@ namespace WeatherAnalitycs.ViewModel
             {
                 _selectedStation = value;
                 SearchStore.StationId = int.Parse(_selectedStation.Split('(', ')')[1]);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedStation));
             }
         }
         public SearchParamsStore SearchStore { get; set; } = new();
 
         public TabItemTableViewModel TableViewModel { get; set; }
+        public TabItemRepeatViewModel RepeatViewModel { get; set; }
+        public TabItemAverageViewModel AverageViewModel { get; set; }
+        public TabItemWindroseViewModel WindroseViewModel { get; set; }
+        public TabItemCalmcountViewModel CalmcountViewModel { get; set; }
 
         public RelayCommand UpdateDataCommand { get; set; }
         public RelayCommand AddNewStationCommand { get; set; }

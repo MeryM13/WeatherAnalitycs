@@ -26,7 +26,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 if (_useStationId == _useStationName)
                     _useStationId = !_useStationName;
                 ChangeState(_useStationName, Parameter.Station);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseStationName));
+                OnPropertyChanged(nameof(UseStationId));
             }
         }
 
@@ -40,7 +41,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 if (_useStationName == _useStationId)
                     _useStationName = !_useStationId;
                 ChangeState(_useStationId, Parameter.Station);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseStationName));
+                OnPropertyChanged(nameof(UseStationId));
             }
         }
 
@@ -55,9 +57,17 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 _useDate = value;
                 TimeCheckEnabled = value;
                 if (value == false)
+                {
                     CombineCheckEnabled = false;
+                    _useTime = false;
+                    _combine = false;
+                    OnPropertyChanged(nameof(UseTime));
+                    OnPropertyChanged(nameof(Combine));
+                    OnPropertyChanged(nameof(CombineCheckEnabled));
+                }
                 ChangeState(_useDate, Parameter.Date);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseDate));
+                OnPropertyChanged(nameof(TimeCheckEnabled));
             }
         }
 
@@ -70,7 +80,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 _useTime = value;
                 CombineCheckEnabled = value;
                 _dateOnly = !value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseTime));
+                OnPropertyChanged(nameof(CombineCheckEnabled));
             }
         }
 
@@ -82,7 +93,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _combine = value;
                 _divideDateAndTime = !value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Combine));
             }
         }
 
@@ -94,7 +105,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _useWindDirection = value;
                 ChangeState(_useWindDirection, Parameter.Wind_Direction);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseWindDirection));
             }
         }
 
@@ -106,7 +117,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _useWindSpeed = value;
                 ChangeState(_useWindSpeed, Parameter.Wind_Speed);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseWindSpeed));
             }
         }
 
@@ -118,7 +129,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _useTemperature = value;
                 ChangeState(_useTemperature, Parameter.Temperature);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseTemperature));
             }
         }
 
@@ -130,7 +141,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _useHumidity = value;
                 ChangeState(_useHumidity, Parameter.Humidity);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseHumidity));
             }
         }
 
@@ -142,7 +153,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _usePressure = value;
                 ChangeState(_usePressure, Parameter.Pressure);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UsePressure));
             }
         }
 
@@ -154,7 +165,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _useSnowHeight = value;
                 ChangeState(_useSnowHeight, Parameter.Snow_Height);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(UseSnowHeight));
             }
         }
 
