@@ -4,9 +4,77 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherAnalitycs.View.TabControlItems"
+             xmlns:util="clr-namespace:WeatherAnalitycs.Utility" xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" d:DataContext="{d:DesignInstance Type=tabitems:TabItemRepeatViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="250" d:DesignWidth="800" Background="AntiqueWhite">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Utility/StrictStyleDictionary.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <util:RBtoDirectionConverter x:Key="DirectionConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--<Image HorizontalAlignment="Left" Height="250" Margin="15,10,0,0" VerticalAlignment="Top" Width="250" Source="//Rose.png"/>-->
+        
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <RadioButton Grid.Row="0" Grid.Column="2" x:Name="rbNorth" Content="С" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=0}"/>
+            <RadioButton Grid.Row="1" Grid.Column="3" x:Name="rbNorthEast" Content="СВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=45}"/>
+            <RadioButton Grid.Row="2" Grid.Column="4" x:Name="rbEast" Content="В" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=90}"/>
+            <RadioButton Grid.Row="3" Grid.Column="3" x:Name="rbSouthEast" Content="ЮВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=135}"/>
+            <RadioButton Grid.Row="4" Grid.Column="2" x:Name="rbSouth" Content="Ю" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=180}"/>
+            <RadioButton Grid.Row="3" Grid.Column="1" x:Name="rbSouthWest" Content="ЮЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=225}"/>
+            <RadioButton Grid.Row="2" Grid.Column="0" x:Name="rbWest" Content="З" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=270}"/>
+            <RadioButton Grid.Row="1" Grid.Column="1" x:Name="rbNorthWest" Content="СЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=315}"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource UCLabel}" HorizontalAlignment="Left" Text="Выберите направление ветра, для которого будет построен график повторяемости:"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource WarningText}" Text="Так как промежуточные направления расчитываются программой, график повторяемости для них недоступен вследствие нерепрезентативности"/>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <RadioButton Grid.Column="0" x:Name="rbCalm" Content="Штили" IsChecked="{Binding Calm}"/>
+                <Label Grid.Column="1" Content="Интервал:" VerticalAlignment="Top"/>
+                <ComboBox Grid.Column="2" x:Name="cmbPeriodicityTimeInterval" Width="185" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
+            </Grid>
+
+            <Button Grid.Row="3" x:Name="btnGetPeriodicityChart" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

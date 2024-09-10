@@ -14,9 +14,9 @@ namespace WeatherAnalitycs.ViewModel.TabItems
     internal class TabItemAverageViewModel: BaseTabItemViewModel
     {
         SearchParamsStore _store;
-        string _average, _parameterName;
+        string _intervalName, _parameterName;
         Parameter _parameter = Parameter.Temperature;
-        DateInterval _averagesInterval = DateInterval.Month;
+        DateInterval _interval = DateInterval.Month;
 
         readonly Dictionary<string, Parameter> parameterDict = new()
         {
@@ -38,14 +38,14 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         public List<string> Intervals { get => intervalDict.Select(x => x.Key).ToList(); }
         public List<string> Parameters { get => parameterDict.Select(x => x.Key).ToList(); }
 
-        public string Average
+        public string IntervalName
         {
-            get => intervalDict.FirstOrDefault(x => x.Value == _averagesInterval).Key;
+            get => intervalDict.FirstOrDefault(x => x.Value == _interval).Key;
             set
             {
-                _average = value;
-                _averagesInterval = intervalDict[_average];
-                OnPropertyChanged(nameof(Average));
+                _intervalName = value;
+                _interval = intervalDict[_intervalName];
+                OnPropertyChanged(nameof(IntervalName));
             }
         }
 
@@ -69,8 +69,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         void OpenAverageGraph()
         {
             Statistics stat = new(_store.From, _store.To, _store.StationId);
-            string title = $"График среднe{_average} значений {_parameterName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
-            DisplayWindow window = new(title, stat.GetAveragesChart(_parameter, _averagesInterval));
+            string title = $"График среднe{_intervalName} значений {_parameterName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
+            DisplayWindow window = new(title, stat.GetAveragesChart(_parameter, _interval));
             window.Show();
         }
     }
