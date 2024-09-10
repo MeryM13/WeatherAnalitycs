@@ -51,6 +51,10 @@ namespace WeatherAnalitycs.ViewModel
             ExitCommand = new RelayCommand(Exit);
 
             TableViewModel = new(SearchStore);
+            RepeatViewModel = new(SearchStore);
+            AverageViewModel = new(SearchStore);
+            WindroseViewModel = new(SearchStore);
+            CalmcountViewModel = new(SearchStore);
         }
 
         void UpdateData()
