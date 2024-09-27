@@ -14,10 +14,10 @@ namespace WeatherAnalitycs.View
     /// </summary>
     public partial class DisplayWindow : Window
     {
-        public DisplayWindow(string title, DataTable table)
+        public DisplayWindow(string title, int entries, DataTable table)
         {
             InitializeComponent();
-            this.DataContext = new DisplayTableWindowViewModel(table, title);
+            this.DataContext = new DisplayTableWindowViewModel(table, entries, title);
 
             Binding binding = new()
             {
@@ -27,21 +27,20 @@ namespace WeatherAnalitycs.View
 
             DataGrid grid = new()
             {
-                Margin = new Thickness(0, 125, 0, 0),
                 CanUserAddRows = false,
                 CanUserDeleteRows = false,
                 CanUserReorderColumns = false,
-                ClipToBounds = true
+                ClipToBounds = true,
             };
             BindingOperations.SetBinding(grid, DataGrid.ItemsSourceProperty, binding);
 
             mainGrid.Children.Add(grid);
         }
 
-        public DisplayWindow(string title, Dictionary<DateTime, decimal> data)
+        public DisplayWindow(string title, int entries, Dictionary<DateTime, decimal> data)
         {
             InitializeComponent();
-            this.DataContext = new DisplayChartWindowViewModel(title, data);
+            this.DataContext = new DisplayChartWindowViewModel(title, entries, data);
 
             Binding seriesBinding = new()
             {
@@ -67,10 +66,10 @@ namespace WeatherAnalitycs.View
             mainGrid.Children.Add(chart);
         }
 
-        public DisplayWindow(string title, Dictionary<decimal, decimal> data)
+        public DisplayWindow(string title, int entries, Dictionary<decimal, decimal> data)
         {
             InitializeComponent();
-            this.DataContext = new DisplayRoseWindowViewModel(title, data);
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries, data);
 
             Binding seriesBinding = new()
             {

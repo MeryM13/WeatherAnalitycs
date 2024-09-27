@@ -69,8 +69,9 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         void OpenAverageGraph()
         {
             Statistics stat = new(_store.From, _store.To, _store.StationId);
+            int entries = stat.GetAll();
             string title = $"График среднe{_intervalName} значений {_parameterName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
-            DisplayWindow window = new(title, stat.GetAveragesChart(_parameter, _interval));
+            DisplayWindow window = new(title, entries, stat.GetAveragesChart(_parameter, _interval));
             window.Show();
         }
     }

@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherAnalitycs.Utility;
@@ -14,7 +16,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         SearchParamsStore _store;
         int _calmCount, _lowCount;
         decimal _calmPeriodicity, _lowPeriodicity;
-        bool _getCalmCount, _getCalmPeriodicity, _getLowCount, _getLowPeriodicity;
+        bool _getCalmCount = true, _getCalmPeriodicity = true, _getLowCount = true, _getLowPeriodicity = true;
+        string _entriesUsed;
 
         public int CalmCount
         {
@@ -93,6 +96,16 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
+        public string EntriesUsed
+        {
+            get => _entriesUsed;
+            set
+            {
+                _entriesUsed = value;
+                OnPropertyChanged(nameof(EntriesUsed));
+            }
+        }
+
         public TabItemCalmcountViewModel(SearchParamsStore store) : base(store)
         {
             _store = store;
@@ -107,10 +120,12 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             LowCount = 0;
             LowPeriodicity = 0;
 
+            EntriesUsed = $"В расчетах использовано {stat.GetAll()} записей";
+
             if (GetCalmCount)
                 CalmCount = stat.GetCalmCount();
             if (GetLowCount)
-                LowCount = stat.GetWeakCount();
+                LowCount = stat.GetLowSpeedCount();
             if (GetCalmPeriodicity)
                 CalmPeriodicity = stat.GetCalmPeriodicity();
             if (GetLowPeriodicity)

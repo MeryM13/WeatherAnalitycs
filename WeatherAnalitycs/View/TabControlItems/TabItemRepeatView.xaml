@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WeatherAnalitycs.View.TabControlItems"
              xmlns:util="clr-namespace:WeatherAnalitycs.Utility" xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" d:DataContext="{d:DesignInstance Type=tabitems:TabItemRepeatViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800" Background="AntiqueWhite">
+             d:DesignHeight="250" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -7,7 +7,7 @@
              xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" 
              d:DataContext="{d:DesignInstance Type=tabitems:TabItemCalmcountViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800" Background="AntiqueWhite">
+             d:DesignHeight="250" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,13 +22,13 @@
             <RowDefinition/>
             <RowDefinition Height="6*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Выберите необходимые параметры:" Style="{StaticResource UCLabel}"/>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -41,17 +41,17 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource InformationField}" Text="Штили"/>
             <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chkGetCalmCount" Content="Подсчитать количество" IsChecked="{Binding GetCalmCount}"/>
-            <TextBox Grid.Row="2" Grid.Column="0" x:Name="txtCalmCount" HorizontalAlignment="Left" VerticalAlignment="Center" IsEnabled="False" Text="{Binding CalmCount}"/>
-            <CheckBox Grid.Row="4" Grid.Column="0" x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" IsChecked="{Binding GetCalmPeriodicity}"/>
-            <TextBox Grid.Row="5" Grid.Column="0" x:Name="txtCalmPeriodicity" HorizontalAlignment="Left" TextWrapping="NoWrap" VerticalAlignment="Center" IsEnabled="False" Text="{Binding CalmPeriodicity}"/>
+            <TextBox Grid.Row="2" Grid.Column="0" x:Name="txtCalmCount" VerticalAlignment="Center" IsEnabled="False" Text="{Binding CalmCount}"/>
+            <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chkGetCalmPeriodicity" Content="Подсчитать повторяемость" IsChecked="{Binding GetCalmPeriodicity}"/>
+            <TextBox Grid.Row="4" Grid.Column="0" x:Name="txtCalmPeriodicity" TextWrapping="NoWrap" VerticalAlignment="Center" IsEnabled="False" Text="{Binding CalmPeriodicity}"/>
 
             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource InformationField}" Text="Слабые ветра"/>
             <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkGetLowCount" Content="Подсчитать количество" IsChecked="{Binding GetLowCount}"/>
-            <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtLowCount" HorizontalAlignment="Left" VerticalAlignment="Center" IsEnabled="False" Text="{Binding LowCount}"/>
-            <CheckBox Grid.Row="4" Grid.Column="1" x:Name="chkGetLowPeriodicity" Content="Подсчитать повторяемость" IsChecked="{Binding GetLowPeriodicity}"/>
-            <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtLowPeriodicity" HorizontalAlignment="Left" TextWrapping="NoWrap" VerticalAlignment="Center" IsEnabled="False" Text="{Binding LowPeriodicity}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtLowCount" VerticalAlignment="Center" IsEnabled="False" Text="{Binding LowCount}"/>
+            <CheckBox Grid.Row="3" Grid.Column="1" x:Name="chkGetLowPeriodicity" Content="Подсчитать повторяемость" IsChecked="{Binding GetLowPeriodicity}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtLowPeriodicity" TextWrapping="NoWrap" VerticalAlignment="Center" IsEnabled="False" Text="{Binding LowPeriodicity}"/>
         </Grid>
-
-        <Button Grid.Row="2" x:Name="btnGetCalmStats" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}" />
+        <TextBlock Grid.Row="2" Text="{Binding EntriesUsed}" HorizontalAlignment="Center"/>
+        <Button Grid.Row="3" x:Name="btnGetCalmStats" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}" />
     </Grid>
 </UserControl>
