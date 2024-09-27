@@ -8,7 +8,7 @@ namespace WeatherAnalitycs.ViewModel
 {
     public class DisplayChartWindowViewModel
     {
-        public DisplayChartWindowViewModel(string title, Dictionary<DateTime, decimal> data)
+        public DisplayChartWindowViewModel(string title, int entries, Dictionary<DateTime, decimal> data)
         {
             List<DateTime> list = new(data.Keys);
             var stringlabels = list.Select(x => x.ToString("d"));
@@ -22,6 +22,7 @@ namespace WeatherAnalitycs.ViewModel
                 }
              };
             WindowTitle = title;
+            EntriesUsed = $"В расчетах использовано {entries} записей";
             XAxes = new List<Axis>
             {
               new Axis
@@ -33,6 +34,7 @@ namespace WeatherAnalitycs.ViewModel
         }
 
         public string WindowTitle { get; set; }
+        public string EntriesUsed { get; set; }
         public ISeries[] Series { get; set; }
         public List<Axis> XAxes { get; set; }
     }

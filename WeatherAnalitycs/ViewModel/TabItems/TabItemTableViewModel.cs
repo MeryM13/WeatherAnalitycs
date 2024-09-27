@@ -14,8 +14,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
     internal class TabItemTableViewModel:BaseTabItemViewModel
     {
         readonly List<Parameter> _parameters = new();
-        bool _useStationName = false;
-        bool _divideDateAndTime = false;
+        bool _useStationName = true;
+        bool _divideDateAndTime = true;
         bool _dateOnly = true;
 
         public bool UseStationName
@@ -184,7 +184,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 
             string title = $"Таблица метеоданных для станции {SearchParamsStore.StationId} за период с {SearchParamsStore.From:d} до {SearchParamsStore.To:d}";
             Statistics _stat = new(SearchParamsStore.From, SearchParamsStore.To,SearchParamsStore.StationId);
-            DisplayWindow window = new(title, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
+            int entries = _stat.GetAll();
+            DisplayWindow window = new(title, entries, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
             window.Show();
         }
 

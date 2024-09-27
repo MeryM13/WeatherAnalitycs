@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WeatherAnalytics.View"
+        xmlns:local="clr-namespace:WeatherAnalytics.View" 
+        xmlns:viewmodel="clr-namespace:WeatherAnalitycs.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:DataUpdateViewModel}"
         mc:Ignorable="d"
-        Title="Обновление данных" Height="450" Width="800" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize">
+        Title="Обновление данных" Height="450" Width="450" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -17,17 +19,30 @@
     </Window.Resources>
     
     <Grid>
-        <TextBlock Text="Обновление данных" Style="{StaticResource WindowLabel}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
-        <RadioButton x:Name="rbUpdateAll" Content="Все" Margin="55,82,0,0" Checked="RbUpdateAll_Checked"/>
-        <RadioButton x:Name="rbChooseUpgrades" Content="Выбрать станции:" Margin="55,119,0,0" Checked="RbChooseUpgrades_Checked"/>
+        <TextBlock Grid.Row="0" Text="Обновление данных" Style="{StaticResource WindowLabel}"/>
+        <RadioButton Grid.Row="1" x:Name="rbUpdateAll" Content="Все" IsChecked="{Binding UpdateAll}"/>
+        <Rectangle Grid.Row="2"/>
+        <RadioButton Grid.Row="3" x:Name="rbChooseUpgrades" Content="Выбрать станции:"/>
 
-        <Button x:Name="btnUpdate" Style="{StaticResource GenericButton}" Content="Обновить" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Click="BtnUpdate_Click"/>
-        
-        <Rectangle Margin="50,112,50,0"/>
-        
-        <ScrollViewer Margin="10,149,10,45" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch">
-            <Grid x:Name="checkboxGrid" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"/>
-        </ScrollViewer>
+        <ListView Grid.Row="4" VerticalContentAlignment="Stretch" ItemsSource="{Binding StationList}" IsEnabled="{Binding ListEnabled}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--<ListBox Grid.Row="4" ItemsSource="{Binding StationList}" SelectionMode="Extended" SelectedItem="{Binding Path=SelectedStations, ConverterCulture=ru-RU}" IsEnabled="{Binding ListEnabled}"/>-->
+
+        <Button Grid.Row="5" x:Name="btnUpdate" Style="{StaticResource GenericButton}" Content="Обновить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding UpdateCommand}"/>
     </Grid>
 </Window>

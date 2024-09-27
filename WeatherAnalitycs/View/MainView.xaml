@@ -7,7 +7,6 @@
              xmlns:tabcontrolitems="clr-namespace:WeatherAnalitycs.View.TabControlItems"
              d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
              mc:Ignorable="d" 
-             Background="AntiqueWhite"
              d:DesignHeight="600" d:DesignWidth="950">
     <UserControl.Resources>
         <ResourceDictionary>

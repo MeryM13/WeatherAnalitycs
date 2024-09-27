@@ -11,7 +11,7 @@ namespace WeatherAnalitycs.Utility
     internal class SearchParamsStore:BaseViewModel
     {
         public int StationId { get; set; } = 0;
-        public DateTime From { get; set; } = new(2012, 01, 01);
+        public DateTime From { get; set; } = new(2020, 01, 01);
         public DateTime To { get; set; } = DateTime.Now;
     }
 }

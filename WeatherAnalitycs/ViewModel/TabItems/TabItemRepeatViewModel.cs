@@ -91,7 +91,8 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 _directionName = "штилей";
             }
             string title = $"График повторяемости {_directionName} с интервалом {_intervalName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
-            DisplayWindow window = new(title, stat.GetWindPeriodicityChart(direction, _interval));
+            int entries = stat.GetAll();
+            DisplayWindow window = new(title, entries, stat.GetWindPeriodicityChart(direction, _interval));
             window.Show();
         }
     }

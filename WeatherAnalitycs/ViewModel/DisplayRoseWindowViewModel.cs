@@ -7,7 +7,7 @@ namespace WeatherAnalitycs.ViewModel
 {
     class DisplayRoseWindowViewModel
     {
-        public DisplayRoseWindowViewModel(string title, Dictionary<decimal, decimal> data)
+        public DisplayRoseWindowViewModel(string title, int entries, Dictionary<decimal, decimal> data)
         {
             Series = new ISeries[]
              {
@@ -18,6 +18,7 @@ namespace WeatherAnalitycs.ViewModel
                 }
              };
             WindowTitle = title;
+            EntriesUsed = $"В расчетах использовано {entries} записей";
             switch (data.Count)
             {
                 case 8:
@@ -51,11 +52,11 @@ namespace WeatherAnalitycs.ViewModel
             }
         }
 
-        public DisplayRoseWindowViewModel(string title, Dictionary<decimal, int> data)
+        public DisplayRoseWindowViewModel(string title, int entries, Dictionary<decimal, int> data)
         {
             Series = new ISeries[]
              {
-                new LineSeries<int>
+                new PolarLineSeries<int>
                 {
                     Values = data.Values,
                     Fill = null
@@ -63,6 +64,7 @@ namespace WeatherAnalitycs.ViewModel
                 }
              };
             WindowTitle = title;
+            EntriesUsed = $"В расчетах использовано {entries} записей";
             switch (data.Count)
             {
                 case 8:
@@ -97,6 +99,7 @@ namespace WeatherAnalitycs.ViewModel
         }
         public PolarAxis[] AngleAxes { get; set; }
         public string WindowTitle { get; set; }
+        public string EntriesUsed { get; set; }
         public ISeries[] Series { get; set; }
         public decimal ChartRotation {get; set;}
     }
