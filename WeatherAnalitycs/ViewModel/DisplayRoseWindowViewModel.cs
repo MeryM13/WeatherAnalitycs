@@ -60,7 +60,6 @@ namespace WeatherAnalitycs.ViewModel
                 {
                     Values = data.Values,
                     Fill = null
-
                 }
              };
             WindowTitle = title;
@@ -97,6 +96,55 @@ namespace WeatherAnalitycs.ViewModel
                     }
             }
         }
+
+        public DisplayRoseWindowViewModel(string title, int entries, List<Dictionary<decimal, decimal>> data)
+        {
+            Series = new ISeries[data.Count];
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                Series[i] = new PolarLineSeries<decimal>
+                {
+                    Values = data[i].Values,
+                    Fill = null
+                };
+            }
+
+            WindowTitle = title;
+            EntriesUsed = $"В расчетах использовано {entries} записей";
+            switch (data[1].Count)
+            {
+                case 8:
+                    {
+                        ChartRotation = 270;
+                        AngleAxes = new PolarAxis[]
+                        {
+                            new PolarAxis
+                            {
+                                Labels = new[] { "С", "СВ", "В", "ЮВ", "Ю", "ЮЗ", "З", "СЗ" }
+                            }
+                        };
+                        break;
+                    }
+                case 16:
+                    {
+                        ChartRotation = 270;
+                        AngleAxes = new PolarAxis[]
+                        {
+                            new PolarAxis
+                            {
+                                Labels = new[] { "С", "ССВ", "СВ", "СВВ", "В", "ЮВВ", "ЮВ", "ЮЮВ", "Ю","ЮЮЗ", "ЮЗ","ЮЗЗ", "З", "СЗЗ", "СЗ", "ССЗ" }
+                            }
+                        };
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception();
+                    }
+            }
+        }
+
         public PolarAxis[] AngleAxes { get; set; }
         public string WindowTitle { get; set; }
         public string EntriesUsed { get; set; }

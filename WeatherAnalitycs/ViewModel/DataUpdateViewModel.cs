@@ -40,8 +40,8 @@ namespace WeatherAnalitycs.ViewModel
             }
         }
 
-        List<string> _stationList;
-        public List<string> StationList
+        List<UpdateStationCheckboxViewModel> _stationList;
+        public List<UpdateStationCheckboxViewModel> StationList
         {
             get => _stationList;
             set
@@ -67,7 +67,12 @@ namespace WeatherAnalitycs.ViewModel
         public DataUpdateViewModel(Window window)
         {
             _window = window;
-            StationList = _parser.GetStationNamesList();
+            _selectedStations = new();
+            _stationList = new();
+            foreach (string station in _parser.GetStationNamesList())
+            {
+                _stationList.Add(new(station, ref _selectedStations));
+            }      
             UpdateCommand = new RelayCommand(Update);
         }
 
@@ -102,6 +107,45 @@ namespace WeatherAnalitycs.ViewModel
                     progress.Close();
 
                     _window.Close();
+                }
+            }
+        }
+    }
+
+    class UpdateStationCheckboxViewModel : BaseViewModel
+    {
+        string _stationName;
+        List<string> _selectedStations;
+        public UpdateStationCheckboxViewModel(string stationName, ref List<string> selectedStations) 
+        {
+            _stationName = stationName;
+            _selectedStations = selectedStations;
+        }
+
+        public string StationName
+        {
+            get { return _stationName; }
+            set { _stationName = value; OnPropertyChanged(StationName); }
+        }
+
+        public bool IncludeStation
+        {
+            get { return _selectedStations.Contains(StationName); }
+            set
+            {
+                if (value)
+                {
+                    if (!_selectedStations.Contains(StationName))
+                    {
+                        _selectedStations.Add(StationName);
+                    }
+                }
+                else
+                {
+                    if (_selectedStations.Contains(StationName))
+                    {
+                        _selectedStations.Remove(StationName);
+                    }
                 }
             }
         }

@@ -36,13 +36,10 @@
         <ListView Grid.Row="4" VerticalContentAlignment="Stretch" ItemsSource="{Binding StationList}" IsEnabled="{Binding ListEnabled}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox/>
+                    <CheckBox Content="{Binding StationName}" IsChecked="{Binding IncludeStation}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <!--<ListBox Grid.Row="4" ItemsSource="{Binding StationList}" SelectionMode="Extended" SelectedItem="{Binding Path=SelectedStations, ConverterCulture=ru-RU}" IsEnabled="{Binding ListEnabled}"/>-->
-
         <Button Grid.Row="5" x:Name="btnUpdate" Style="{StaticResource GenericButton}" Content="Обновить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding UpdateCommand}"/>
     </Grid>
 </Window>

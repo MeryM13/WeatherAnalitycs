@@ -51,7 +51,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             Statistics stat = new(_store.From,_store.To,_store.StationId);
             int entries = stat.GetAll();
             string title = $"{_numberOfDirections}-румбовая роза ветров {(_distributeCalm ? "с распределением штилей" : "без распределения штилей")} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
-            DisplayWindow window = new(title, entries, stat.GetPercentageWindRose(_distributeCalm, _numberOfDirections));
+            DisplayWindow window = new(title, entries, stat.GetDifferentiatedPercentageWindRose(_distributeCalm, _numberOfDirections, new int[] { 3, 6, 9, 12, 15, 20 }));
             window.Show();
         }
     }

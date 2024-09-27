@@ -99,5 +99,39 @@ namespace WeatherAnalitycs.View
 
             mainGrid.Children.Add(chart);
         }
+
+        public DisplayWindow(string title, int entries, List<Dictionary<decimal, decimal>> data)
+        {
+            InitializeComponent();
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries, data);
+
+            Binding seriesBinding = new()
+            {
+                Source = this.DataContext,
+                Path = new PropertyPath("Series")
+            };
+
+            Binding axesBinding = new()
+            {
+                Source = this.DataContext,
+                Path = new PropertyPath("AngleAxes")
+            };
+
+            Binding rotationBinding = new()
+            {
+                Source = this.DataContext,
+                Path = new PropertyPath("ChartRotation")
+            };
+
+            PolarChart chart = new()
+            {
+                Margin = new Thickness(0, 125, 0, 0)
+            };
+            BindingOperations.SetBinding(chart, PolarChart.SeriesProperty, seriesBinding);
+            BindingOperations.SetBinding(chart, PolarChart.AngleAxesProperty, axesBinding);
+            BindingOperations.SetBinding(chart, PolarChart.InitialRotationProperty, rotationBinding);
+
+            mainGrid.Children.Add(chart);
+        }
     }
 }
