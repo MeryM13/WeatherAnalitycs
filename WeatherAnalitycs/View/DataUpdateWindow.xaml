@@ -36,7 +36,7 @@
         <ListView Grid.Row="4" VerticalContentAlignment="Stretch" ItemsSource="{Binding StationList}" IsEnabled="{Binding ListEnabled}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding StationName}" IsChecked="{Binding IncludeStation}"/>
+                    <CheckBox Content="{Binding StationName}" IsChecked="{Binding IncludeStation}" Style="{StaticResource StationCheckBox}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

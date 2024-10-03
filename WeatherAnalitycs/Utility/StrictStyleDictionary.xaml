@@ -25,18 +25,19 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
     </Style>
 
     <Style x:Key="CalculateButtons" TargetType="Button" BasedOn="{StaticResource GenericButton}">
         <Setter Property="Background" Value="#FFE5E5E5"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
     </Style>
 
     <Style x:Key="StationCheckBox" TargetType="CheckBox">
         <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
         <Setter Property="FontSize" Value="22"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style TargetType="CheckBox">
@@ -99,17 +100,18 @@
     <Style TargetType="DatePicker">
         <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
         <Setter Property="FontSize" Value="22"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FirstDayOfWeek" Value="Monday"/>
         <Setter Property="SelectedDateFormat" Value="Short"/>
         <Setter Property="DisplayDateStart" Value="01.01.2012"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
     </Style>
 
     <Style TargetType="ComboBox">
         <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
         <Setter Property="FontSize" Value="22"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="Black"/>
     </Style>

@@ -106,7 +106,8 @@ namespace WeatherAnalitycs.ViewModel
                 Series[i] = new PolarLineSeries<decimal>
                 {
                     Values = data[i].Values,
-                    Fill = null
+                    Fill = null,
+                    Name = i.ToString()
                 };
             }
 

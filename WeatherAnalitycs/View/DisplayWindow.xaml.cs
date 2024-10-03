@@ -1,10 +1,12 @@
-﻿using LiveChartsCore.SkiaSharpView.WPF;
+﻿using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore.SkiaSharpView.WPF;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using WeatherAnalitycs.Utility;
 using WeatherAnalitycs.ViewModel;
 
 namespace WeatherAnalitycs.View
@@ -104,34 +106,7 @@ namespace WeatherAnalitycs.View
         {
             InitializeComponent();
             this.DataContext = new DisplayRoseWindowViewModel(title, entries, data);
-
-            Binding seriesBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("Series")
-            };
-
-            Binding axesBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("AngleAxes")
-            };
-
-            Binding rotationBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("ChartRotation")
-            };
-
-            PolarChart chart = new()
-            {
-                Margin = new Thickness(0, 125, 0, 0)
-            };
-            BindingOperations.SetBinding(chart, PolarChart.SeriesProperty, seriesBinding);
-            BindingOperations.SetBinding(chart, PolarChart.AngleAxesProperty, axesBinding);
-            BindingOperations.SetBinding(chart, PolarChart.InitialRotationProperty, rotationBinding);
-
-            mainGrid.Children.Add(chart);
+            mainGrid.Children.Add(new Rose(data));
         }
     }
 }

@@ -27,9 +27,23 @@ namespace WeatherAnalitycs.ViewModel
             {
                 _selectedStation = value;
                 SearchStore.StationId = int.Parse(_selectedStation.Split('(', ')')[1]);
+                StationInfo = _parser.GetStationInfo(SearchStore.StationId);
                 OnPropertyChanged(nameof(SelectedStation));
+                OnPropertyChanged(nameof(StationInfo));
             }
         }
+
+        string _stationInfo;
+        public string StationInfo
+        {
+            get => _stationInfo;
+            set
+            {
+                _stationInfo = value;
+                OnPropertyChanged(nameof(StationInfo));
+            }
+        }
+
         public SearchParamsStore SearchStore { get; set; } = new();
 
         public TabItemTableViewModel TableViewModel { get; set; }
