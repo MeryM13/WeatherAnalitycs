@@ -11,13 +11,23 @@ using WeatherDataParser.CLASSES;
 using WeatherAnalitycs.Utility;
 using WeatherDataParser;
 using WeatherAnalitycs.ViewModel.TabItems;
+using WeatherAnalitycs.View;
 
 namespace WeatherAnalitycs.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
         readonly Parser _parser = new();
-        public List<string> StationNames { get; set; }
+        List<string> _stationNames;
+        public List<string> StationNames 
+        { 
+            get => _stationNames; 
+            set
+            {
+                _stationNames = value;
+                OnPropertyChanged(nameof(StationNames));
+            } 
+        }
         
         string _selectedStation;
         public string SelectedStation
@@ -55,6 +65,7 @@ namespace WeatherAnalitycs.ViewModel
         public RelayCommand UpdateDataCommand { get; set; }
         public RelayCommand AddNewStationCommand { get; set; }
         public RelayCommand ExitCommand { get; set; }
+        public RelayCommand OpenSettingsCommand { get; set; }
 
         public MainViewModel()
         {
@@ -63,6 +74,7 @@ namespace WeatherAnalitycs.ViewModel
             UpdateDataCommand = new RelayCommand(UpdateData);
             AddNewStationCommand = new RelayCommand(AddNewStation);
             ExitCommand = new RelayCommand(Exit);
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
 
             TableViewModel = new(SearchStore);
             RepeatViewModel = new(SearchStore);
@@ -76,14 +88,21 @@ namespace WeatherAnalitycs.ViewModel
             DataUpdateWindow DUW = new();
             DUW.ShowDialog();
         }
-        void AddNewStation()
+        async void AddNewStation()
         {
             AddStationWindow ASW = new();
             ASW.ShowDialog();
+            StationNames = _parser.GetStationNamesList();
         }
         void Exit()
         {
             Environment.Exit(0);
+        }
+
+        void OpenSettings()
+        {
+            SettingsWindow SW = new();
+            SW.ShowDialog();
         }
     }
 }

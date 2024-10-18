@@ -71,41 +71,14 @@ namespace WeatherAnalitycs.View
         public DisplayWindow(string title, int entries, Dictionary<decimal, decimal> data)
         {
             InitializeComponent();
-            this.DataContext = new DisplayRoseWindowViewModel(title, entries, data);
-
-            Binding seriesBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("Series")
-            };
-
-            Binding axesBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("AngleAxes")
-            };
-
-            Binding rotationBinding = new()
-            {
-                Source = this.DataContext,
-                Path = new PropertyPath("ChartRotation")
-            };
-
-            PolarChart chart = new()
-            {
-                Margin = new Thickness(0, 125, 0, 0)
-            };
-            BindingOperations.SetBinding(chart, PolarChart.SeriesProperty, seriesBinding);
-            BindingOperations.SetBinding(chart, PolarChart.AngleAxesProperty, axesBinding);
-            BindingOperations.SetBinding(chart, PolarChart.InitialRotationProperty, rotationBinding);
-
-            mainGrid.Children.Add(chart);
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries);
+            mainGrid.Children.Add(new Rose(new Dictionary<int, Dictionary<decimal, decimal>>() { { 0, data } }));
         }
 
-        public DisplayWindow(string title, int entries, List<Dictionary<decimal, decimal>> data)
+        public DisplayWindow(string title, int entries, Dictionary<int, Dictionary<decimal, decimal>> data)
         {
             InitializeComponent();
-            this.DataContext = new DisplayRoseWindowViewModel(title, entries, data);
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries);
             mainGrid.Children.Add(new Rose(data));
         }
     }

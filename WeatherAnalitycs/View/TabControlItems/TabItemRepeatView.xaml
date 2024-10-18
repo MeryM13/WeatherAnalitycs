@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WeatherAnalitycs.View.TabControlItems"
              xmlns:util="clr-namespace:WeatherAnalitycs.Utility" xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" d:DataContext="{d:DesignInstance Type=tabitems:TabItemRepeatViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,7 +23,7 @@
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         
-        <!--<Image HorizontalAlignment="Left" Height="250" Margin="15,10,0,0" VerticalAlignment="Top" Width="250" Source="//Rose.png"/>-->
+        <Image Grid.Column="0" HorizontalAlignment="Stretch" Height="250" VerticalAlignment="Stretch" Source="//Rose.png"/>
         
         <Grid Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -41,14 +41,14 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <RadioButton Grid.Row="0" Grid.Column="2" x:Name="rbNorth" Content="С" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=0}"/>
-            <RadioButton Grid.Row="1" Grid.Column="3" x:Name="rbNorthEast" Content="СВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=45}"/>
-            <RadioButton Grid.Row="2" Grid.Column="4" x:Name="rbEast" Content="В" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=90}"/>
-            <RadioButton Grid.Row="3" Grid.Column="3" x:Name="rbSouthEast" Content="ЮВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=135}"/>
-            <RadioButton Grid.Row="4" Grid.Column="2" x:Name="rbSouth" Content="Ю" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=180}"/>
-            <RadioButton Grid.Row="3" Grid.Column="1" x:Name="rbSouthWest" Content="ЮЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=225}"/>
-            <RadioButton Grid.Row="2" Grid.Column="0" x:Name="rbWest" Content="З" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=270}"/>
-            <RadioButton Grid.Row="1" Grid.Column="1" x:Name="rbNorthWest" Content="СЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=315}"/>
+            <RadioButton Grid.Row="0" Grid.Column="2" Content="С" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=0}"/>
+            <RadioButton Grid.Row="1" Grid.Column="3" Content="СВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=45}"/>
+            <RadioButton Grid.Row="2" Grid.Column="4" Content="В" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=90}"/>
+            <RadioButton Grid.Row="3" Grid.Column="3" Content="ЮВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=135}"/>
+            <RadioButton Grid.Row="4" Grid.Column="2" Content="Ю" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=180}"/>
+            <RadioButton Grid.Row="3" Grid.Column="1" Content="ЮЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=225}"/>
+            <RadioButton Grid.Row="2" Grid.Column="0" Content="З" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=270}"/>
+            <RadioButton Grid.Row="1" Grid.Column="1" Content="СЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=315}"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -59,22 +59,30 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource UCLabel}" HorizontalAlignment="Left" Text="Выберите направление ветра, для которого будет построен график повторяемости:"/>
+            <TextBlock Grid.Row="0" Style="{StaticResource UCLabel}" Text="Выберите направление ветра, для которого будет построен график повторяемости:"/>
             <TextBlock Grid.Row="1" Style="{StaticResource WarningText}" Text="Так как промежуточные направления расчитываются программой, график повторяемости для них недоступен вследствие нерепрезентативности"/>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <RadioButton Grid.Column="0" x:Name="rbCalm" Content="Штили" IsChecked="{Binding Calm}"/>
-                <Label Grid.Column="1" Content="Интервал:" VerticalAlignment="Top"/>
-                <ComboBox Grid.Column="2" x:Name="cmbPeriodicityTimeInterval" Width="185" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
+                <RadioButton Grid.Column="0" Content="Штили" IsChecked="{Binding Calm}"/>
+                <Label Grid.Column="1" Content="Интервал:" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="2" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
             </Grid>
 
-            <Button Grid.Row="3" x:Name="btnGetPeriodicityChart" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Расчет" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
+                <Button Grid.Column="1" Content="Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

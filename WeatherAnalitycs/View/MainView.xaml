@@ -30,10 +30,12 @@
                 <ColumnDefinition Width="2.1*"/>
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" x:Name="btnUpdate" Style="{StaticResource GenericButton}" Content="Обновить данные" Command="{Binding UpdateDataCommand}"/>
             <TextBlock Grid.Column="1" Text="Метеорологический архив" Style="{StaticResource WindowLabel}" HorizontalAlignment="Center"/>
-            <Button Grid.Column="2" x:Name="btnExit" Style="{StaticResource GenericButton}" Content="Выход" Command="{Binding ExitCommand}"/>
+            <Button Grid.Column="2" Style="{StaticResource GenericButton}" Content="Настройки" Command="{Binding OpenSettingsCommand}"/>
+            <Button Grid.Column="3" Style="{StaticResource GenericButton}" Content="Выход" Command="{Binding ExitCommand}"/>
         </Grid>
 
         <Grid Grid.Row="1">

@@ -14,7 +14,7 @@ namespace WeatherAnalitycs.ViewModel
 {
     class AddStationViewModel : BaseViewModel
     {
-        Parser _parser = new();
+        Parser _parser = new(DateTime.Parse("01.01.2015"));
         Station _station;
         Window _window;
         string _stationInfo = "Название станции: Расположение: Географические координаты: широта: долгота: Высота над уровнем моря:";

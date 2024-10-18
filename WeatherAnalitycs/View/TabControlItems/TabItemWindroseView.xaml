@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherAnalitycs.View.TabControlItems" xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" d:DataContext="{d:DesignInstance Type=tabitems:TabItemWindroseViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,10 +17,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Задайте параметры графика:" Style="{StaticResource UCLabel}"/>
@@ -35,26 +35,47 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-              
-                <Label Grid.Row="0" Content="Количество румбов:" VerticalAlignment="Top"/>
-                
-                <Grid Grid.Row="1">
+               
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.3*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <RadioButton Grid.Column="0" x:Name="rb8Directions" Content="8" IsChecked="{Binding Directions}"/>
-                    <RadioButton Grid.Column="1" x:Name="rb16Directions" Content="16" />
+                    <Label Grid.Column="0" Content="Количество румбов:" VerticalAlignment="Top"/>
+                    <RadioButton Grid.Column="1" Content="8" IsChecked="{Binding Directions}"/>
+                    <RadioButton Grid.Column="2" Content="16" />
                 </Grid>
+
+                <CheckBox Grid.Row="2" Content="Распределить штили" IsChecked="{Binding DistributeCalm}"/>
             </Grid>
-            
-            <CheckBox Grid.Column="1" x:Name="chkDistributeCalm" Content="Распределить штили" IsChecked="{Binding DistributeCalm}"/>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <CheckBox Grid.Row="0" Content="Дифференцировать по скорости" IsChecked="{Binding Differentiate}"/>
+                <Label Grid.Row="1" Content="Скорости (через запятую):"/>
+                <TextBox Grid.Row="2" Text="{Binding DiffString, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Differentiate}"/>
+            </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Style="{StaticResource WarningText}" Height="91" Width="710" Text="Примечание: перевод розы из восьми- в шестнадцатирумбовую, как и распределение штилей, осуществляется программным путем, а потому график, полученный по таким параметрам, может неточно ображать полученные из Интернета данные"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Stretch" Style="{StaticResource WarningText}" Text="Примечание: перевод розы из восьми- в шестнадцатирумбовую, как и распределение штилей, осуществляется программным путем, а потому график, полученный по таким параметрам, может неточно ображать полученные из Интернета данные"/>
 
-        <Button Grid.Row="3" x:Name="btnGetWindRose" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}" />
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Расчет" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
+            <Button Grid.Column="1" Content="Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

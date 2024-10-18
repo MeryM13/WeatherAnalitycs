@@ -12,25 +12,24 @@ namespace WeatherAnalitycs.ViewModel
         {
             List<DateTime> list = new(data.Keys);
             var stringlabels = list.Select(x => x.ToString("d"));
-            Series = new ISeries[]
-             {
+            Series =
+             [
                 new LineSeries<decimal>
                 {
                     Values = data.Values,
                     Fill = null
 
                 }
-             };
+             ];
             WindowTitle = title;
             EntriesUsed = $"В расчетах использовано {entries} записей";
-            XAxes = new List<Axis>
-            {
-              new Axis
-                {
+            XAxes =
+            [
+              new() {
                 // Use the labels property to define named labels.
                 Labels = stringlabels.ToArray(),
                 }
-            };
+            ];
         }
 
         public string WindowTitle { get; set; }

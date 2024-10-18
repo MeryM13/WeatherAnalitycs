@@ -7,7 +7,7 @@
              xmlns:tabitems="clr-namespace:WeatherAnalitycs.ViewModel.TabItems" 
              d:DataContext="{d:DesignInstance Type=tabitems:TabItemAverageViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,11 +20,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Задайте параметры графика:" Width="780" Style="{StaticResource UCLabel}"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" Text="Задайте параметры графика:" Style="{StaticResource UCLabel}"/>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -35,12 +35,20 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Интервал:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Grid.Row="0" Grid.Column="1" Content="Метеопараметр:" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-            <ComboBox Grid.Row="1" Grid.Column="0" x:Name="cmbParameter" Width="269" SelectedItem="{Binding ParameterName}" ItemsSource="{Binding Parameters}"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmbTimeInterval" Width="269" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Интервал:" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="Метеопараметр:" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <ComboBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" SelectedItem="{Binding ParameterName}" ItemsSource="{Binding Parameters}"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
         </Grid>
 
-        <Button Grid.Row="2" x:Name="btnGetAveragesChart" Style="{StaticResource CalculateButtons}" Content="Расчет" Command="{Binding ButtonPressCommand}" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Расчет" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
+            <Button Grid.Column="1" Content="Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

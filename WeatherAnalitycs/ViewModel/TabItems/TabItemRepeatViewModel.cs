@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HarfBuzzSharp;
 using Microsoft.VisualBasic;
+using OfficeOpenXml.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WeatherAnalitycs.Utility;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
@@ -78,7 +80,10 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         public TabItemRepeatViewModel(SearchParamsStore store): base(store) 
         {
             _store = store;
+            _intervalName = "Месяц";
+            _directionName = "северного ветра";
             ButtonPressCommand = new RelayCommand(OpenRepeatGraph);
+            ConvertToExcelCommand = new RelayCommand(CreateExcelSheet);
         }
 
         void OpenRepeatGraph()
@@ -94,6 +99,21 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             int entries = stat.GetAll();
             DisplayWindow window = new(title, entries, stat.GetWindPeriodicityChart(direction, _interval));
             window.Show();
+        }
+
+        async void CreateExcelSheet()
+        {
+            Statistics stat = new(_store.From, _store.To, _store.StationId);
+            decimal? direction = _direction;
+            if (Calm)
+            {
+                direction = null;
+                _directionName = "штилей";
+            }
+            var converter = new ExcelConverter();
+            await Task.Run(() => converter.Convert($"{SearchParamsStore.StationId}_Повторяемость {_directionName}_{_store.From:d}-{_store.To:d}",
+                stat.GetWindPeriodicityChart(direction, _interval)));
+            MessageBox.Show("Таблица создана");
         }
     }
 }

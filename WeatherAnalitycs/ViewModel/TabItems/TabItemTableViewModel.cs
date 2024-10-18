@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,6 +173,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         public TabItemTableViewModel(SearchParamsStore store): base(store) 
         {
             ButtonPressCommand = new RelayCommand(OpenTable);
+            ConvertToExcelCommand = new RelayCommand(CreateExcelSheet);
         }
 
         void OpenTable()
@@ -187,6 +189,20 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             int entries = _stat.GetAll();
             DisplayWindow window = new(title, entries, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
             window.Show();
+        }
+
+       async void CreateExcelSheet()
+        {
+            if (_parameters.Count == 0)
+            {
+                MessageBox.Show("Выберите столбцы для построения таблицы");
+                return;
+            }
+            Statistics _stat = new(SearchParamsStore.From, SearchParamsStore.To, SearchParamsStore.StationId);
+            var converter = new ExcelConverter();
+            await Task.Run(() => converter.Convert($"{SearchParamsStore.StationId}_Данные_{SearchParamsStore.From:d}-{SearchParamsStore.To:d}", 
+                _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly), Microsoft.VisualBasic.DateInterval.Year));
+            MessageBox.Show("Таблица создана");
         }
 
         void ChangeState(bool state, Parameter param)

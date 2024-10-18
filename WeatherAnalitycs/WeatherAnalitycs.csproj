@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>    
 	
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="EPPlus" Version="7.4.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
     <PackageReference Include="LiveChartsCore" Version="2.0.0-rc3.3" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc3.3" />
@@ -18,12 +19,6 @@
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="WeatherDataParser">
-      <HintPath>..\..\WeatherDataParser\WeatherDataParser\bin\Debug\net6.0\WeatherDataParser.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Rose.png" />
@@ -31,6 +26,12 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WeatherDataParser">
+      <HintPath>..\..\WeatherDataParser\WeatherDataParser\bin\Debug\net8.0\WeatherDataParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

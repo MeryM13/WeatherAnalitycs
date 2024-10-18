@@ -12,6 +12,7 @@ namespace WeatherAnalitycs.Utility
     {
         public SearchParamsStore SearchParamsStore { get; set; }
         public RelayCommand ButtonPressCommand { get; set; }
+        public RelayCommand ConvertToExcelCommand { get; set; }
 
         public BaseTabItemViewModel(SearchParamsStore searchParamsStore) 
         { 

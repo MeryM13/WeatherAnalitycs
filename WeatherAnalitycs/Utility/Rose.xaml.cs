@@ -25,6 +25,7 @@ namespace WeatherAnalitycs.Utility
         double centerX, centerY;
         List<Dictionary<decimal, decimal>> dataList;
         Dictionary<Dictionary<decimal, decimal>, SolidColorBrush> list;
+        List<int> speeds;
         double zoom = 1;
         double circleSizeDifference = 0.02;
         Dictionary<double, string> AngleLetterDirections = new()
@@ -53,10 +54,11 @@ namespace WeatherAnalitycs.Utility
         };
         int numberOfDirections;
 
-        public Rose(List<Dictionary<decimal, decimal>> data)
+        public Rose(Dictionary<int, Dictionary<decimal, decimal>> data)
         {
             InitializeComponent();
-            dataList = data;
+            speeds = data.Keys.ToList();
+            dataList = data.Values.ToList();
             numberOfDirections = dataList[0].Keys.Count;
             list = new();
             for (int i = 0; i < dataList.Count; i++)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WeatherAnalitycs.Utility;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
@@ -63,7 +64,10 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         public TabItemAverageViewModel(SearchParamsStore store) : base(store)
         {
             _store = store;
+            _parameterName = "Температура воздуха";
+            _intervalName = "Месяц";
             ButtonPressCommand = new RelayCommand(OpenAverageGraph);
+            ConvertToExcelCommand = new RelayCommand(CreateExcelSheet);
         }
 
         void OpenAverageGraph()
@@ -73,6 +77,15 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             string title = $"График среднe{_intervalName} значений {_parameterName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
             DisplayWindow window = new(title, entries, stat.GetAveragesChart(_parameter, _interval));
             window.Show();
+        }
+
+        async void CreateExcelSheet()
+        {
+            Statistics stat = new(_store.From, _store.To, _store.StationId);
+            var converter = new ExcelConverter();
+            await Task.Run(() => converter.Convert($"{SearchParamsStore.StationId}_Среднее {_parameterName}_{_store.From:d}-{_store.To:d}",
+                stat.GetAveragesChart(_parameter, _interval)));
+            MessageBox.Show("Таблица создана");
         }
     }
 }
