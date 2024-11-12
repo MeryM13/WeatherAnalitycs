@@ -6,41 +6,59 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
+using MvvmHelpers;
 
 namespace WeatherAnalitycs.Utility
 {
     internal class SettingsClass
     {
-        string _settingsFilePath = "../../../settings.json";
+        readonly string _settingsFilePath = "../../../settings.json";
 
-        public DateTime StartingDate { get; set; } = DateTime.Parse("01.01.2015");
-        public string WindRoseDataType { get; set; } = "Проценты";
-        public bool DifferentiateRoseByDefault { get; set; } = true;
-        public string DatabaseServer { get; set; } = "SQLite";
-        public bool UseDefaultConnectionString { get; set; } = true;
-        public string DatabaseConnectionString { get; set; } = "";
-        public string ExcelSavePath { get; set; } = "";
-        public bool DivideExcelTable { get; set; } = true;
-        public DateInterval ExcelTableDivider { get; set; } = DateInterval.Year;
+        public DateTime StartingDate { get; set; } 
+        public string WindRoseDataType { get; set; } 
+        public bool DifferentiateRoseByDefault { get; set; } 
+        public string DatabaseServer { get; set; } 
+        public bool UseDefaultConnectionString { get; set; } 
+        public string DatabaseConnectionString { get; set; } 
+        public string ExcelSavePath { get; set; } 
+        public bool DivideExcelTable { get; set; } 
+        public DateInterval ExcelTableDivider { get; set; } 
 
-        public async Task SaveToFile()
+        public void CreateFile()
         {
+            StartingDate = DateTime.Parse("01.01.2015");
+            WindRoseDataType = "Percent";
+            DifferentiateRoseByDefault = true;
+            DatabaseServer = "SQLite";
+            UseDefaultConnectionString = true;
+            DatabaseConnectionString = "";
+            ExcelSavePath = @"C:\WeatherDataSheets";
+            DivideExcelTable = true;
+            ExcelTableDivider = DateInterval.Year;
             using (FileStream fs = new(_settingsFilePath, FileMode.OpenOrCreate))
             {
-                await JsonSerializer.SerializeAsync(fs, this);
+                JsonSerializer.SerializeAsync(fs, this);
             }
         }
 
-        public async Task LoadFromFile()
+        public void SaveToFile()
+        {
+            using (FileStream fs = new(_settingsFilePath, FileMode.Truncate))
+            {
+                JsonSerializer.SerializeAsync(fs, this);
+            }
+        }
+
+        public void LoadFromFile()
         {
             if (!File.Exists(_settingsFilePath))
-                await SaveToFile();
+                CreateFile();
 
             using (FileStream fs = new(_settingsFilePath, FileMode.Open))
             {
                 try
                 {
-                    SettingsClass settings = await JsonSerializer.DeserializeAsync<SettingsClass>(fs);
+                    SettingsClass settings = JsonSerializer.DeserializeAsync<SettingsClass>(fs).Result;
                     StartingDate = settings.StartingDate;
                     WindRoseDataType = settings.WindRoseDataType;
                     DifferentiateRoseByDefault = settings.DifferentiateRoseByDefault;

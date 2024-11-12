@@ -1,14 +1,16 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿//using CommunityToolkit.Mvvm.Input;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MvvmHelpers;
+using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using WeatherAnalitycs.Utility;
 
@@ -16,7 +18,7 @@ namespace WeatherAnalitycs.ViewModel
 {
     internal class SettingsViewModel : BaseViewModel
     {
-        Window _window;
+        readonly Window _window;
         SettingsClass _settingsClass = new();
 
         readonly Dictionary<string, DateInterval> intervalDict = new()
@@ -28,18 +30,31 @@ namespace WeatherAnalitycs.ViewModel
             {"Год", DateInterval.Year },
         };
 
+        readonly Dictionary<string, string> windRoseDataTypes = new()
+        {
+            {"Проценты", "Percent" },
+            {"Числа", "Count" }
+        };
+
         public SettingsClass Settings
         {
             get => _settingsClass;
+            set => SetProperty(ref _settingsClass, value);
+        }
+
+        public ObservableRangeCollection<string> DatabasesNames { get; set; }
+        public List<string> WindRoseDataTypes { get => windRoseDataTypes.Select(x => x.Key).ToList(); }
+        public string TypeName
+        {
+            get => windRoseDataTypes.FirstOrDefault(x => x.Value == Settings.WindRoseDataType).Key;
             set
             {
-                _settingsClass = value;
+                Settings.WindRoseDataType = windRoseDataTypes[value];
+                OnPropertyChanged(nameof(TypeName));
                 OnPropertyChanged(nameof(Settings));
             }
         }
 
-        public List<string> DatabasesNames { get; set; }
-        public List<string> WindRoseDataTypes { get; set; }
         public List<string> Intervals { get => intervalDict.Select(x => x.Key).ToList(); }
         public string IntervalName
         {
@@ -48,36 +63,37 @@ namespace WeatherAnalitycs.ViewModel
             {
                 Settings.ExcelTableDivider = intervalDict[value];
                 OnPropertyChanged(nameof(IntervalName));
+                OnPropertyChanged(nameof(Settings));
             }
         }
 
-        public RelayCommand SaveSettingsCommand { get; set; }
-        public RelayCommand ExitCommand { get; set; }
-        public RelayCommand ResetDatabaseCommand {  get; set; }
-        public RelayCommand RecreateDatabaseCommand { get; set; }
-        public RelayCommand OpenFileExplorerForExcelPathCommand {  get; set; }
+        public ICommand SaveSettingsCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
+        public ICommand ResetDatabaseCommand {  get; set; }
+        public ICommand RecreateDatabaseCommand { get; set; }
+        public ICommand OpenFileExplorerForExcelPathCommand {  get; set; }
 
         public SettingsViewModel(Window window)
         {
             _window = window;
             Load();
-            SaveSettingsCommand = new RelayCommand(SaveSettings);
-            ExitCommand = new RelayCommand(Exit);
-            ResetDatabaseCommand = new RelayCommand(ResetDatabase);
-            RecreateDatabaseCommand = new RelayCommand(RecreateDatabase);
-            OpenFileExplorerForExcelPathCommand = new RelayCommand(OpenFileExplorerForExcelPath);
+            SaveSettingsCommand = new Command(SaveSettings);
+            ExitCommand = new Command(Exit);
+            ResetDatabaseCommand = new Command(ResetDatabase);
+            RecreateDatabaseCommand = new Command(RecreateDatabase);
+            OpenFileExplorerForExcelPathCommand = new Command(OpenFileExplorerForExcelPath);
         }
 
-        async void Load()
+        void Load()
         {
             DatabasesNames = ["SQLite", "MSSQL"];
-            WindRoseDataTypes = ["Проценты", "Числа"];
-            await _settingsClass.LoadFromFile();
+            Settings.LoadFromFile();
+            OnPropertyChanged(nameof(Settings));
         }
 
-        async void SaveSettings()
+        void SaveSettings()
         {
-            await _settingsClass.SaveToFile();
+            Settings.SaveToFile();
             _window.Close();
         }
 
@@ -105,6 +121,7 @@ namespace WeatherAnalitycs.ViewModel
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 Settings.ExcelSavePath = dlg.FileName;
+                OnPropertyChanged(nameof(Settings));
             }
         }
     }

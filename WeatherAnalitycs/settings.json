@@ -1,1 +1,1 @@
-{"StartingDate":"2015-01-01T00:00:00","WindRoseDataType":"Percentage","DifferentiateRoseByDefault":true,"DatabaseServer":"SQLite","DatabaseConnectionString":"","ExcelSavePath":"","DivideExcelTable":true,"ExcelTableDivider":0}
+{"StartingDate":"2015-01-01T00:00:00","WindRoseDataType":"Percent","DifferentiateRoseByDefault":true,"DatabaseServer":"MSSQL","UseDefaultConnectionString":true,"DatabaseConnectionString":"","ExcelSavePath":"C:\\Users\\Pavel Sharomov\\Desktop","DivideExcelTable":true,"ExcelTableDivider":2}

@@ -16,7 +16,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 {
     internal class TabItemRepeatViewModel: BaseTabItemViewModel
     {
-        SearchParamsStore _store;
+        private SearchParamsStore _store;
         decimal _direction;
         string _intervalName, _directionName;
         DateInterval _interval = DateInterval.Month;

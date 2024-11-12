@@ -28,12 +28,14 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="1.1*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Style="{StaticResource WindowLabel}" Text="Настройки"/>
-            <Button Grid.Column="1" Content="Выход" Style="{StaticResource GenericButton}" Command="{Binding ExitCommand}"/>
+            <Button Grid.Column="1" Content="Сохранить" Style="{StaticResource GenericButton}" Command="{Binding SaveSettingsCommand}"/>
+            <Button Grid.Column="2" Content="Выход" Style="{StaticResource GenericButton}" Command="{Binding ExitCommand}"/>
         </Grid>
         
         <ScrollViewer Grid.Row="1" HorizontalContentAlignment="Stretch">
@@ -75,9 +77,8 @@
                             <Button Grid.Column="1" Style="{StaticResource GenericButton}" Content="Парсинг" Command="{Binding ResetDatabaseCommand}"/>
                         </Grid>
 
-
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Значения розы ветров:" Style="{StaticResource SettingsField}"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding WindRoseDataTypes}" SelectedItem="{Binding Settings.WindRoseDataType}"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding WindRoseDataTypes}" SelectedItem="{Binding TypeName}"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Дифференциировать розу по умолчанию:" Style="{StaticResource SettingsField}"/>
                         <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.DifferentiateRoseByDefault}"/>
@@ -134,7 +135,14 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Путь сохранения:" Style="{StaticResource SettingsField}"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Settings.ExcelSavePath}"/>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{Binding Settings.ExcelSavePath}"/>
+                            <Button Grid.Column="1" Style="{StaticResource GenericButton}" Content="Обзор" Command="{Binding OpenFileExplorerForExcelPathCommand}"/>
+                        </Grid>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Разделять таблицу на периоды:" Style="{StaticResource SettingsField}"/>
                         <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Settings.DivideExcelTable}"/>
