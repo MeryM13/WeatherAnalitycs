@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MvvmHelpers;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using WeatherAnalitycs.Utility;
 
 namespace WeatherAnalitycs.ViewModel
@@ -17,6 +19,15 @@ namespace WeatherAnalitycs.ViewModel
         Window _window;
         SettingsClass _settingsClass = new();
 
+        readonly Dictionary<string, DateInterval> intervalDict = new()
+        {
+            {"День", DateInterval.Day },
+            {"Неделя", DateInterval.WeekOfYear },
+            {"Месяц", DateInterval.Month },
+            {"Квартал", DateInterval.Quarter },
+            {"Год", DateInterval.Year },
+        };
+
         public SettingsClass Settings
         {
             get => _settingsClass;
@@ -24,6 +35,19 @@ namespace WeatherAnalitycs.ViewModel
             {
                 _settingsClass = value;
                 OnPropertyChanged(nameof(Settings));
+            }
+        }
+
+        public List<string> DatabasesNames { get; set; }
+        public List<string> WindRoseDataTypes { get; set; }
+        public List<string> Intervals { get => intervalDict.Select(x => x.Key).ToList(); }
+        public string IntervalName
+        {
+            get => intervalDict.FirstOrDefault(x => x.Value == Settings.ExcelTableDivider).Key;
+            set
+            {
+                Settings.ExcelTableDivider = intervalDict[value];
+                OnPropertyChanged(nameof(IntervalName));
             }
         }
 
@@ -36,6 +60,7 @@ namespace WeatherAnalitycs.ViewModel
         public SettingsViewModel(Window window)
         {
             _window = window;
+            Load();
             SaveSettingsCommand = new RelayCommand(SaveSettings);
             ExitCommand = new RelayCommand(Exit);
             ResetDatabaseCommand = new RelayCommand(ResetDatabase);
@@ -43,9 +68,16 @@ namespace WeatherAnalitycs.ViewModel
             OpenFileExplorerForExcelPathCommand = new RelayCommand(OpenFileExplorerForExcelPath);
         }
 
-        void SaveSettings()
+        async void Load()
         {
-            _settingsClass.SaveToFile();
+            DatabasesNames = ["SQLite", "MSSQL"];
+            WindRoseDataTypes = ["Проценты", "Числа"];
+            await _settingsClass.LoadFromFile();
+        }
+
+        async void SaveSettings()
+        {
+            await _settingsClass.SaveToFile();
             _window.Close();
         }
 

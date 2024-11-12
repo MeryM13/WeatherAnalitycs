@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WeatherAnalitycs.View" xmlns:viewmodel="clr-namespace:WeatherAnalitycs.ViewModel" 
+        xmlns:local="clr-namespace:WeatherAnalitycs.View" 
+        xmlns:viewmodel="clr-namespace:WeatherAnalitycs.ViewModel" 
+        xmlns:util="clr-namespace:WeatherAnalitycs.Utility"
         d:DataContext="{d:DesignInstance Type=viewmodel:SettingsViewModel}"
         mc:Ignorable="d"
         Title="SettingsWindow" Height="450" Width="800">
@@ -14,6 +16,7 @@
                 <ResourceDictionary Source="/Utility/StrictStyleDictionary.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <util:InvertBoolConverter x:Key="InvertBoolConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -62,7 +65,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Дата начала парсинга:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Дата начала парсинга:" Style="{StaticResource SettingsField}"/>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
@@ -73,10 +76,10 @@
                         </Grid>
 
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Значения розы ветров:"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Settings.WindRoseDataType}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Значения розы ветров:" Style="{StaticResource SettingsField}"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding WindRoseDataTypes}" SelectedItem="{Binding Settings.WindRoseDataType}"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="Дифференциировать розу по умолчанию:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Дифференциировать розу по умолчанию:" Style="{StaticResource SettingsField}"/>
                         <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.DifferentiateRoseByDefault}"/>
                     </Grid>
                 </Grid>
@@ -97,13 +100,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Сервер баз данных:"/>
-                        <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Settings.DatabaseServer}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Сервер баз данных:" Style="{StaticResource SettingsField}"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding DatabasesNames}" SelectedItem="{Binding Settings.DatabaseServer}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Строка подключения:"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Settings.DatabaseConnectionString}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Использовать строку подключения по умолчанию:" Style="{StaticResource SettingsField}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Settings.UseDefaultConnectionString}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Строка подключения:" Style="{StaticResource SettingsField}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Settings.DatabaseConnectionString}" IsEnabled="{Binding Settings.UseDefaultConnectionString, Converter={StaticResource InvertBoolConverter}}"/>
                     </Grid>
                 </Grid>
                 <!--Excel sheet creation settings-->
@@ -123,13 +130,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Путь сохранения:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Путь сохранения:" Style="{StaticResource SettingsField}"/>
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Settings.ExcelSavePath}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Разделитель таблиц с данными по умолчанию:"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Settings.ExcelTableDivider}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Разделять таблицу на периоды:" Style="{StaticResource SettingsField}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Settings.DivideExcelTable}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Периоды:" Style="{StaticResource SettingsField}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Intervals}" SelectedItem="{Binding IntervalName}" IsEnabled="{Binding Settings.DivideExcelTable}"/>
                     </Grid>
                 </Grid>
             </Grid>
