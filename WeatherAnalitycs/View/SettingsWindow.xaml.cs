@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeatherAnalitycs.ViewModel;
 
 namespace WeatherAnalitycs.View
 {
@@ -22,6 +23,7 @@ namespace WeatherAnalitycs.View
         public SettingsWindow()
         {
             InitializeComponent();
+            DataContext = new SettingsViewModel(this);
         }
     }
 }
