@@ -15,7 +15,6 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 {
     internal class TabItemAverageViewModel: BaseTabItemViewModel
     {
-        SearchParamsStore _store;
         string _intervalName, _parameterName;
         Parameter _parameter = Parameter.Temperature;
         DateInterval _interval = DateInterval.Month;
@@ -64,7 +63,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 
         public TabItemAverageViewModel(SearchParamsStore store, SettingsClass settings) : base(store, settings)
         {
-            _store = store;
+            Store = store;
             _parameterName = "Температура воздуха";
             _intervalName = "Месяц";
             ButtonPressCommand = new RelayCommand(OpenAverageGraph);
@@ -73,18 +72,18 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 
         void OpenAverageGraph()
         {
-            Statistics stat = new(_store.From, _store.To, _store.StationId);
+            Statistics stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
             int entries = stat.GetAll();
-            string title = $"График среднe{_intervalName} значений {_parameterName} для станции {_store.StationId} за период с {_store.From:d} до {_store.To:d}";
-            DisplayWindow window = new(title, entries, stat.GetAveragesChart(_parameter, _interval));
+            string title = $"График среднe{_intervalName} значений {_parameterName} для станции {Store.StationId} за период с {Store.From:d} до {Store.To:d}";
+            DisplayWindow window = new(title, entries, stat.GetAveragesChart(_parameter, _interval), Settings);
             window.Show();
         }
 
         async void CreateExcelSheet()
         {
-            Statistics stat = new(_store.From, _store.To, _store.StationId);
-            var converter = new ExcelConverter();
-            await Task.Run(() => converter.Convert($"{SearchParamsStore.StationId}_Среднее {_parameterName}_{_store.From:d}-{_store.To:d}",
+            Statistics stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
+            var converter = new ExcelConverter(Settings.ExcelSavePath);
+            await Task.Run(() => converter.Convert($"{Store.StationId}_Среднее {_parameterName}_{Store.From:d}-{Store.To:d}",
                 stat.GetAveragesChart(_parameter, _interval)));
             MessageBox.Show("Таблица создана");
         }

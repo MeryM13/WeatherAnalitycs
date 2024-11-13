@@ -7,16 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
+using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalytics.View;
 using WeatherDataParser;
 using WeatherDataParser.CLASSES;
 
 namespace WeatherAnalitycs.ViewModel
 {
-    class DataUpdateViewModel:BaseViewModel
+    class DataUpdateViewModel:ViewModelBase
     {
-        Parser _parser = new();
-        Window _window;
+        readonly Parser _parser;
+        readonly Window _window;
         bool _updateAll = true;
         bool _listEnabled;
         public bool UpdateAll
@@ -64,11 +66,12 @@ namespace WeatherAnalitycs.ViewModel
 
         public RelayCommand UpdateCommand { get; set; }
 
-        public DataUpdateViewModel(Window window)
+        public DataUpdateViewModel(Window window, SettingsClass settings): base(settings) 
         {
             _window = window;
-            _selectedStations = new();
-            _stationList = new();
+            _parser = new Parser(Settings.StartingDate, Settings.DatabaseConnectionString, Settings.DatabaseServer);
+            _selectedStations = [];
+            _stationList = [];
             foreach (string station in _parser.GetStationNamesList())
             {
                 _stationList.Add(new(station, ref _selectedStations));
@@ -115,7 +118,7 @@ namespace WeatherAnalitycs.ViewModel
     class UpdateStationCheckboxViewModel : BaseViewModel
     {
         string _stationName;
-        List<string> _selectedStations;
+        readonly List<string> _selectedStations;
         public UpdateStationCheckboxViewModel(string stationName, ref List<string> selectedStations) 
         {
             _stationName = stationName;

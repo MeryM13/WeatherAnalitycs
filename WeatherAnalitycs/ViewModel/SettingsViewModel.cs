@@ -36,6 +36,23 @@ namespace WeatherAnalitycs.ViewModel
             {"Абсолютное", "Count" }
         };
 
+        readonly Dictionary<string, int> databases = new()
+        {
+            {"SQLite", 1 },
+            {"MSSQL", 2 }
+        };
+
+        string _diffString;
+        public string DiffString
+        {
+            get => _diffString;
+            set
+            {
+                _diffString = value;
+                OnPropertyChanged(nameof(DiffString));
+            }
+        }
+
         public ObservableRangeCollection<string> DatabasesNames { get; set; }
         public List<string> WindRoseDataTypes { get => windRoseDataTypes.Select(x => x.Key).ToList(); }
         public string TypeName
@@ -61,6 +78,18 @@ namespace WeatherAnalitycs.ViewModel
             }
         }
 
+        public List<string> Databases { get => databases.Select(x => x.Key).ToList(); }
+        public string DatabaseName
+        {
+            get => databases.FirstOrDefault(x => x.Value == Settings.DatabaseServer).Key;
+            set
+            {
+                Settings.DatabaseServer = databases[value];
+                OnPropertyChanged(nameof(IntervalName));
+                OnPropertyChanged(nameof(Settings));
+            }
+        }
+
         public ICommand SaveSettingsCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand ResetDatabaseCommand {  get; set; }
@@ -80,13 +109,21 @@ namespace WeatherAnalitycs.ViewModel
 
         void Load()
         {
-            DatabasesNames = ["SQLite", "MSSQL"];
-            Settings.LoadFromFile();
+            DiffString = string.Join(", ", Settings.DifferentiateRoseSpeeds.Select(s => s.ToString()));
             OnPropertyChanged(nameof(Settings));
+            OnPropertyChanged(nameof(DiffString));
         }
 
         void SaveSettings()
         {
+            try
+            {
+                Settings.DifferentiateRoseSpeeds = [.. DiffString.Split(", ").Select(int.Parse).OrderDescending()];
+            }
+            catch 
+            {
+                MessageBox.Show("Проблема со значениями диференциации розы. Перепроверьте поле");
+            }
             Settings.SaveToFile();
             _window.Close();
         }

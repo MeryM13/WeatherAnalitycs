@@ -14,7 +14,6 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 {
     internal class TabItemCalmcountViewModel : BaseTabItemViewModel
     {
-        SearchParamsStore _store;
         int _calmCount, _lowCount;
         decimal _calmPeriodicity, _lowPeriodicity;
         bool _getCalmCount = true, _getCalmPeriodicity = true, _getLowCount = true, _getLowPeriodicity = true;
@@ -109,13 +108,12 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 
         public TabItemCalmcountViewModel(SearchParamsStore store, SettingsClass settings) : base(store, settings) 
         {
-            _store = store;
             ButtonPressCommand = new RelayCommand(DoCalculations);
         }
 
         void DoCalculations()
         {
-            Statistics stat = new Statistics(_store.From, _store.To, _store.StationId);
+            Statistics stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
             CalmCount = 0;
             CalmPeriodicity = 0;
             LowCount = 0;
@@ -131,7 +129,6 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 CalmPeriodicity = stat.GetCalmPeriodicity();
             if (GetLowPeriodicity)
                 LowPeriodicity = stat.GetWeakPeriodicity();
-
         }
     }
 }

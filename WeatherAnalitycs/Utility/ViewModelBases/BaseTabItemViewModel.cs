@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace WeatherAnalitycs.Utility.ViewModelBases
 {
-    internal class BaseTabItemViewModel : ViewModelBase
+    internal class BaseTabItemViewModel(SearchParamsStore searchParamsStore, SettingsClass settings) : ViewModelBase(settings)
     {
-        public SearchParamsStore SearchParamsStore { get; set; }
+        public SearchParamsStore Store { get; set; } = searchParamsStore;
         public RelayCommand ButtonPressCommand { get; set; }
         public RelayCommand ConvertToExcelCommand { get; set; }
-
-        public BaseTabItemViewModel(SearchParamsStore searchParamsStore, SettingsClass settings) : base(settings)
-        {
-            SearchParamsStore = searchParamsStore;
-        }
     }
 }

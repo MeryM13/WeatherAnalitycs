@@ -6,17 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalytics.View;
 using WeatherDataParser;
 using WeatherDataParser.CLASSES;
 
 namespace WeatherAnalitycs.ViewModel
 {
-    class AddStationViewModel : BaseViewModel
+    class AddStationViewModel : ViewModelBase
     {
-        Parser _parser = new(DateTime.Parse("01.01.2015"));
+        private readonly Parser _parser;
         Station _station;
-        Window _window;
+        readonly Window _window;
         string _stationInfo = "Название станции: Расположение: Географические координаты: широта: долгота: Высота над уровнем моря:";
         string _stationId;
 
@@ -78,9 +80,10 @@ namespace WeatherAnalitycs.ViewModel
         public RelayCommand AddStationCommand { get; set; }
         
 
-        public AddStationViewModel(Window window)
+        public AddStationViewModel(Window window, SettingsClass settings) : base(settings)
         {
             _window = window;
+            _parser = new Parser(Settings.StartingDate, Settings.DatabaseConnectionString, Settings.DatabaseServer);
             ExitCommand = new RelayCommand(Exit);
             SearchStationCommand = new RelayCommand(SearchStation);
             AddStationCommand = new RelayCommand(AddStation);
@@ -88,7 +91,7 @@ namespace WeatherAnalitycs.ViewModel
 
         void Exit()
         {
-_window.Close();
+            _window.Close();
         }
 
         void SearchStation()

@@ -18,7 +18,7 @@ namespace WeatherAnalitycs.ViewModel
 {
     internal class MainViewModel : ViewModelBase
     {
-        readonly Parser _parser = new();
+        Parser _parser;
         List<string> _stationNames;
         public List<string> StationNames 
         { 
@@ -70,6 +70,9 @@ namespace WeatherAnalitycs.ViewModel
 
         public MainViewModel(SettingsClass settings): base(settings)
         {
+            
+            SearchStore.From = Settings.StartingDate;
+            _parser = new Parser(Settings.StartingDate, Settings.DatabaseConnectionString, Settings.DatabaseServer);
             StationNames = _parser.GetStationNamesList();
             SelectedStation = StationNames[0];
             UpdateDataCommand = new RelayCommand(UpdateData);
@@ -77,21 +80,21 @@ namespace WeatherAnalitycs.ViewModel
             ExitCommand = new RelayCommand(Exit);
             OpenSettingsCommand = new RelayCommand(OpenSettings);
 
-            TableViewModel = new(SearchStore, settings);
-            RepeatViewModel = new(SearchStore, settings);
-            AverageViewModel = new(SearchStore, settings);
-            WindroseViewModel = new(SearchStore, settings);
-            CalmcountViewModel = new(SearchStore, settings);
+            TableViewModel = new(SearchStore, Settings);
+            RepeatViewModel = new(SearchStore, Settings);
+            AverageViewModel = new(SearchStore, Settings);
+            WindroseViewModel = new(SearchStore, Settings);
+            CalmcountViewModel = new(SearchStore, Settings);
         }
 
         void UpdateData()
         {
-            DataUpdateWindow DUW = new();
+            DataUpdateWindow DUW = new(Settings);
             DUW.ShowDialog();
         }
-        async void AddNewStation()
+        void AddNewStation()
         {
-            AddStationWindow ASW = new();
+            AddStationWindow ASW = new(Settings);
             ASW.ShowDialog();
             StationNames = _parser.GetStationNamesList();
         }

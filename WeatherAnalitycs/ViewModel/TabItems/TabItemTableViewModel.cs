@@ -15,7 +15,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 {
     internal class TabItemTableViewModel:BaseTabItemViewModel
     {
-        readonly List<Parameter> _parameters = new();
+        readonly List<Parameter> _parameters = [];
         bool _useStationName = true;
         bool _divideDateAndTime = true;
         bool _dateOnly = true;
@@ -185,10 +185,10 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 return;
             }
 
-            string title = $"Таблица метеоданных для станции {SearchParamsStore.StationId} за период с {SearchParamsStore.From:d} до {SearchParamsStore.To:d}";
-            Statistics _stat = new(SearchParamsStore.From, SearchParamsStore.To,SearchParamsStore.StationId);
+            string title = $"Таблица метеоданных для станции {Store.StationId} за период с {Store.From:d} до {Store.To:d}";
+            Statistics _stat = new(Store.From, Store.To,Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
             int entries = _stat.GetAll();
-            DisplayWindow window = new(title, entries, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
+            DisplayWindow window = new(title, entries, _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly), Settings);
             window.Show();
         }
 
@@ -199,10 +199,17 @@ namespace WeatherAnalitycs.ViewModel.TabItems
                 MessageBox.Show("Выберите столбцы для построения таблицы");
                 return;
             }
-            Statistics _stat = new(SearchParamsStore.From, SearchParamsStore.To, SearchParamsStore.StationId);
-            var converter = new ExcelConverter();
-            await Task.Run(() => converter.Convert($"{SearchParamsStore.StationId}_Данные_{SearchParamsStore.From:d}-{SearchParamsStore.To:d}", 
-                _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly), Microsoft.VisualBasic.DateInterval.Year));
+            Statistics _stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
+            var converter = new ExcelConverter(Settings.ExcelSavePath);
+            await Task.Run(() =>
+            {
+                if (Settings.DivideExcelTable)
+                    converter.Convert($"{Store.StationId}_Данные_{Store.From:d}-{Store.To:d}",
+                        _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly), Settings.ExcelTableDivider);
+                else
+                    converter.Convert($"{Store.StationId}_Данные_{Store.From:d}-{Store.To:d}",
+                    _stat.GetRawData(_parameters, _useStationName, _divideDateAndTime, _dateOnly));
+            });
             MessageBox.Show("Таблица создана");
         }
 
@@ -215,8 +222,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
             else
             {
-                if (_parameters.Contains(param))
-                    _parameters.Remove(param);
+                _parameters.Remove(param);
             }
         }
     }

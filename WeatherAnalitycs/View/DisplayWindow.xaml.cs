@@ -16,10 +16,10 @@ namespace WeatherAnalitycs.View
     /// </summary>
     public partial class DisplayWindow : Window
     {
-        public DisplayWindow(string title, int entries, DataTable table)
+        public DisplayWindow(string title, int entries, DataTable table, SettingsClass settings)
         {
             InitializeComponent();
-            this.DataContext = new DisplayTableWindowViewModel(table, entries, title);
+            this.DataContext = new DisplayTableWindowViewModel(table, entries, title, settings);
 
             Binding binding = new()
             {
@@ -39,10 +39,10 @@ namespace WeatherAnalitycs.View
             mainGrid.Children.Add(grid);
         }
 
-        public DisplayWindow(string title, int entries, Dictionary<DateTime, decimal> data)
+        public DisplayWindow(string title, int entries, Dictionary<DateTime, decimal> data, SettingsClass settings)
         {
             InitializeComponent();
-            this.DataContext = new DisplayChartWindowViewModel(title, entries, data);
+            this.DataContext = new DisplayChartWindowViewModel(title, entries, data, settings);
 
             Binding seriesBinding = new()
             {
@@ -68,17 +68,17 @@ namespace WeatherAnalitycs.View
             mainGrid.Children.Add(chart);
         }
 
-        public DisplayWindow(string title, int entries, Dictionary<decimal, decimal> data)
+        public DisplayWindow(string title, int entries, Dictionary<decimal, decimal> data, SettingsClass settings)
         {
             InitializeComponent();
-            this.DataContext = new DisplayRoseWindowViewModel(title, entries);
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries, settings);
             mainGrid.Children.Add(new Rose(new Dictionary<int, Dictionary<decimal, decimal>>() { { 0, data } }));
         }
 
-        public DisplayWindow(string title, int entries, Dictionary<int, Dictionary<decimal, decimal>> data)
+        public DisplayWindow(string title, int entries, Dictionary<int, Dictionary<decimal, decimal>> data, SettingsClass settings)
         {
             InitializeComponent();
-            this.DataContext = new DisplayRoseWindowViewModel(title, entries);
+            this.DataContext = new DisplayRoseWindowViewModel(title, entries, settings);
             mainGrid.Children.Add(new Rose(data));
         }
     }

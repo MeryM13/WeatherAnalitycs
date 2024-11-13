@@ -12,6 +12,7 @@ namespace WeatherAnalitycs.View
         public MainView()
         {
             SettingsClass settings = new();
+            settings.LoadFromFile();
             InitializeComponent();
             DataContext = new MainViewModel(settings);
         }

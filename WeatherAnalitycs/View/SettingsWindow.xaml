@@ -68,8 +68,11 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Дата начала парсинга:" Style="{StaticResource SettingsField}"/>
-                        <Grid Grid.Row="0" Grid.Column="1">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Перезаписывать данные при обновлении:" Style="{StaticResource SettingsField}"/>
+                        <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Settings.RewriteOnUpdate}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Дата начала парсинга:" Style="{StaticResource SettingsField}"/>
+                        <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition/>
@@ -78,11 +81,14 @@
                             <Button Grid.Column="1" Style="{StaticResource GenericButton}" Content="Парсинг" Command="{Binding ResetDatabaseCommand}"/>
                         </Grid>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Значения розы ветров:" Style="{StaticResource SettingsField}"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding WindRoseDataTypes}" SelectedItem="{Binding TypeName}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Значения розы ветров:" Style="{StaticResource SettingsField}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding WindRoseDataTypes}" SelectedItem="{Binding TypeName}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Дифференциировать розу по умолчанию:" Style="{StaticResource SettingsField}"/>
-                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.DifferentiateRoseByDefault}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Дифференцировать розу по умолчанию:" Style="{StaticResource SettingsField}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Settings.DifferentiateRoseByDefault}"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Значения дифференциации по умолчанию:" Style="{StaticResource SettingsField}"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding DiffString, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </Grid>
                 <!--Database settings-->
@@ -103,16 +109,31 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Сервер баз данных:" Style="{StaticResource SettingsField}"/>
-                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding DatabasesNames}" SelectedItem="{Binding Settings.DatabaseServer}"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Databases}" SelectedItem="{Binding DatabaseName}"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Использовать строку подключения по умолчанию:" Style="{StaticResource SettingsField}"/>
                         <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Settings.UseDefaultConnectionString}"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Строка подключения:" Style="{StaticResource SettingsField}"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Settings.DatabaseConnectionString}" IsEnabled="{Binding Settings.UseDefaultConnectionString, Converter={StaticResource InvertBoolConverter}}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Settings.DatabaseConnectionString, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Settings.UseDefaultConnectionString, Converter={StaticResource InvertBoolConverter}}"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Обновление базы данных:" Style="{StaticResource SettingsField}"/>
+                        <Grid Grid.Row="3" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Style="{StaticResource GenericButton}" Command="{Binding CheckDatabaseCommand}">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Проверить подключение</TextBlock>
+                            </Button>
+                            <Button Grid.Column="1" Style="{StaticResource GenericButton}" Command="{Binding RecreateDatabaseCommand}">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Создать базу данных</TextBlock>
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
                 <!--Excel sheet creation settings-->

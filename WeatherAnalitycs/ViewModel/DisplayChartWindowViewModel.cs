@@ -3,12 +3,14 @@ using LiveChartsCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WeatherAnalitycs.Utility.ViewModelBases;
+using WeatherAnalitycs.Utility;
 
 namespace WeatherAnalitycs.ViewModel
 {
-    public class DisplayChartWindowViewModel
+    public class DisplayChartWindowViewModel: ViewModelBase
     {
-        public DisplayChartWindowViewModel(string title, int entries, Dictionary<DateTime, decimal> data)
+        public DisplayChartWindowViewModel(string title, int entries, Dictionary<DateTime, decimal> data, SettingsClass settings): base(settings)
         {
             List<DateTime> list = new(data.Keys);
             var stringlabels = list.Select(x => x.ToString("d"));
