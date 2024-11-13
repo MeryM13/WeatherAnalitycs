@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace WeatherAnalitycs.Utility
+namespace WeatherAnalitycs.Utility.Converters
 {
-    public class RBtoDirectionConverter: IValueConverter
+    public class RBtoDirectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

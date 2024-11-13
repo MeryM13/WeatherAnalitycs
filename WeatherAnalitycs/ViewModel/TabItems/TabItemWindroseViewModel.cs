@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
 
@@ -63,7 +64,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
-        public TabItemWindroseViewModel(SearchParamsStore store) : base(store)
+        public TabItemWindroseViewModel(SearchParamsStore store, SettingsClass settings) : base(store, settings)
         {
             _store = store;
             _diffString = string.Join(", ", _diffSpeeds.Select(s => s.ToString()));

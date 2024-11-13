@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Utility/StrictStyleDictionary.xaml">
+                <ResourceDictionary Source="/Utility/Styles/StrictStyleDictionary.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -27,9 +27,9 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.1*"/>
+                <ColumnDefinition Width="2.5*"/>
                 <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" x:Name="btnUpdate" Style="{StaticResource GenericButton}" Content="Обновить данные" Command="{Binding UpdateDataCommand}"/>

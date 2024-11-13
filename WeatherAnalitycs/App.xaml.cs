@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using WeatherAnalitycs.Utility;
 
 namespace WeatherAnalitycs
 {

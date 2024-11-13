@@ -10,13 +10,16 @@ using MvvmHelpers;
 
 namespace WeatherAnalitycs.Utility
 {
-    internal class SettingsClass
+    public class SettingsClass
     {
         readonly string _settingsFilePath = "../../../settings.json";
 
+        public bool DarkMode { get; set; }
+        public bool RewriteOnUpdate { get; set; }
         public DateTime StartingDate { get; set; } 
         public string WindRoseDataType { get; set; } 
         public bool DifferentiateRoseByDefault { get; set; } 
+        public List<int> DifferentiateRoseSpeeds { get; set; }
         public string DatabaseServer { get; set; } 
         public bool UseDefaultConnectionString { get; set; } 
         public string DatabaseConnectionString { get; set; } 
@@ -26,9 +29,12 @@ namespace WeatherAnalitycs.Utility
 
         public void CreateFile()
         {
+            DarkMode = false;
+            RewriteOnUpdate = false;
             StartingDate = DateTime.Parse("01.01.2015");
             WindRoseDataType = "Percent";
             DifferentiateRoseByDefault = true;
+            DifferentiateRoseSpeeds = [20, 15, 10, 8, 6, 4, 2];
             DatabaseServer = "SQLite";
             UseDefaultConnectionString = true;
             DatabaseConnectionString = "";
@@ -59,6 +65,8 @@ namespace WeatherAnalitycs.Utility
                 try
                 {
                     SettingsClass settings = JsonSerializer.DeserializeAsync<SettingsClass>(fs).Result;
+                    DarkMode = settings.DarkMode;
+                    RewriteOnUpdate = settings.RewriteOnUpdate;
                     StartingDate = settings.StartingDate;
                     WindRoseDataType = settings.WindRoseDataType;
                     DifferentiateRoseByDefault = settings.DifferentiateRoseByDefault;

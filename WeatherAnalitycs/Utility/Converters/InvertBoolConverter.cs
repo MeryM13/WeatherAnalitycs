@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace WeatherAnalitycs.Utility
+namespace WeatherAnalitycs.Utility.Converters
 {
     public class InvertBoolConverter : IValueConverter
     {

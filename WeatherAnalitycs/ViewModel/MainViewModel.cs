@@ -12,10 +12,11 @@ using WeatherAnalitycs.Utility;
 using WeatherDataParser;
 using WeatherAnalitycs.ViewModel.TabItems;
 using WeatherAnalitycs.View;
+using WeatherAnalitycs.Utility.ViewModelBases;
 
 namespace WeatherAnalitycs.ViewModel
 {
-    internal class MainViewModel : BaseViewModel
+    internal class MainViewModel : ViewModelBase
     {
         readonly Parser _parser = new();
         List<string> _stationNames;
@@ -67,7 +68,7 @@ namespace WeatherAnalitycs.ViewModel
         public RelayCommand ExitCommand { get; set; }
         public RelayCommand OpenSettingsCommand { get; set; }
 
-        public MainViewModel()
+        public MainViewModel(SettingsClass settings): base(settings)
         {
             StationNames = _parser.GetStationNamesList();
             SelectedStation = StationNames[0];
@@ -76,11 +77,11 @@ namespace WeatherAnalitycs.ViewModel
             ExitCommand = new RelayCommand(Exit);
             OpenSettingsCommand = new RelayCommand(OpenSettings);
 
-            TableViewModel = new(SearchStore);
-            RepeatViewModel = new(SearchStore);
-            AverageViewModel = new(SearchStore);
-            WindroseViewModel = new(SearchStore);
-            CalmcountViewModel = new(SearchStore);
+            TableViewModel = new(SearchStore, settings);
+            RepeatViewModel = new(SearchStore, settings);
+            AverageViewModel = new(SearchStore, settings);
+            WindroseViewModel = new(SearchStore, settings);
+            CalmcountViewModel = new(SearchStore, settings);
         }
 
         void UpdateData()
@@ -101,7 +102,7 @@ namespace WeatherAnalitycs.ViewModel
 
         void OpenSettings()
         {
-            SettingsWindow SW = new();
+            SettingsWindow SW = new(Settings);
             SW.ShowDialog();
         }
     }

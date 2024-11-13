@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
 
@@ -61,7 +62,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
-        public TabItemAverageViewModel(SearchParamsStore store) : base(store)
+        public TabItemAverageViewModel(SearchParamsStore store, SettingsClass settings) : base(store, settings)
         {
             _store = store;
             _parameterName = "Температура воздуха";

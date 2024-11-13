@@ -1,14 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using HarfBuzzSharp;
 using Microsoft.VisualBasic;
-using OfficeOpenXml.Drawing.Chart;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
 
@@ -77,7 +74,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
-        public TabItemRepeatViewModel(SearchParamsStore store): base(store) 
+        public TabItemRepeatViewModel(SearchParamsStore store, SettingsClass settings): base(store, settings) 
         {
             _store = store;
             _intervalName = "Месяц";

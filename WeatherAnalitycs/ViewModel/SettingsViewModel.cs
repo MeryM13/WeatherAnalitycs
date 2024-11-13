@@ -13,13 +13,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 
 namespace WeatherAnalitycs.ViewModel
 {
-    internal class SettingsViewModel : BaseViewModel
+    internal class SettingsViewModel : ViewModelBase
     {
         readonly Window _window;
-        SettingsClass _settingsClass = new();
 
         readonly Dictionary<string, DateInterval> intervalDict = new()
         {
@@ -33,14 +33,8 @@ namespace WeatherAnalitycs.ViewModel
         readonly Dictionary<string, string> windRoseDataTypes = new()
         {
             {"Проценты", "Percent" },
-            {"Числа", "Count" }
+            {"Абсолютное", "Count" }
         };
-
-        public SettingsClass Settings
-        {
-            get => _settingsClass;
-            set => SetProperty(ref _settingsClass, value);
-        }
 
         public ObservableRangeCollection<string> DatabasesNames { get; set; }
         public List<string> WindRoseDataTypes { get => windRoseDataTypes.Select(x => x.Key).ToList(); }
@@ -73,7 +67,7 @@ namespace WeatherAnalitycs.ViewModel
         public ICommand RecreateDatabaseCommand { get; set; }
         public ICommand OpenFileExplorerForExcelPathCommand {  get; set; }
 
-        public SettingsViewModel(Window window)
+        public SettingsViewModel(Window window, SettingsClass settings): base(settings)
         {
             _window = window;
             Load();

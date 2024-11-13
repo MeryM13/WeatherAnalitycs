@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherDataParser;
 
 namespace WeatherAnalitycs.ViewModel.TabItems
@@ -106,7 +107,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
-        public TabItemCalmcountViewModel(SearchParamsStore store) : base(store)
+        public TabItemCalmcountViewModel(SearchParamsStore store, SettingsClass settings) : base(store, settings) 
         {
             _store = store;
             ButtonPressCommand = new RelayCommand(DoCalculations);

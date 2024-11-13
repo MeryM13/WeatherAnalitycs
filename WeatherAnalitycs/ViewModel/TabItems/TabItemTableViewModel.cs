@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WeatherAnalitycs.Utility;
+using WeatherAnalitycs.Utility.ViewModelBases;
 using WeatherAnalitycs.View;
 using WeatherDataParser;
 
@@ -170,7 +171,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             }
         }
 
-        public TabItemTableViewModel(SearchParamsStore store): base(store) 
+        public TabItemTableViewModel(SearchParamsStore store, SettingsClass settings): base(store, settings) 
         {
             ButtonPressCommand = new RelayCommand(OpenTable);
             ConvertToExcelCommand = new RelayCommand(CreateExcelSheet);
