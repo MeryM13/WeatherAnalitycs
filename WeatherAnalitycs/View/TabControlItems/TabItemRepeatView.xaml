@@ -25,33 +25,17 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        
-        <Image Grid.Column="0" HorizontalAlignment="Stretch" Height="250" VerticalAlignment="Stretch" Source="//Rose.png"/>
-        
-        <Grid Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <RadioButton Grid.Row="0" Grid.Column="2" Content="С" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=0}"/>
-            <RadioButton Grid.Row="1" Grid.Column="3" Content="СВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=45}"/>
-            <RadioButton Grid.Row="2" Grid.Column="4" Content="В" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=90}"/>
-            <RadioButton Grid.Row="3" Grid.Column="3" Content="ЮВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=135}"/>
-            <RadioButton Grid.Row="4" Grid.Column="2" Content="Ю" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=180}"/>
-            <RadioButton Grid.Row="3" Grid.Column="1" Content="ЮЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=225}"/>
-            <RadioButton Grid.Row="2" Grid.Column="0" Content="З" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=270}"/>
-            <RadioButton Grid.Row="1" Grid.Column="1" Content="СЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=315}"/>
+        <Grid Grid.Column="0">
+            <Image Source="/Rose.png" Margin="-23,10,43,10"/>
+            <RadioButton Content="С" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=0}" Margin="152,10,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="СВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=45}" Margin="236,51,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="В" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=90}" Margin="277,0,0,0"/>
+            <RadioButton Content="ЮВ" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=135}" Margin="236,220,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="Ю" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=180}" Margin="152,265,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="ЮЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=225}" Margin="29,220,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="З" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=270}"/>
+            <RadioButton Content="СЗ" FlowDirection="RightToLeft" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=315}" VerticalAlignment="Top" Margin="35,51,0,0"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -72,19 +56,19 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <RadioButton Grid.Column="0" Content="Штили" IsChecked="{Binding Calm}"/>
+                <RadioButton Grid.Column="0" Content="Штили" IsChecked="{Binding Path=Direction, Converter={StaticResource DirectionConverter}, ConverterParameter=-1}"/>
                 <Label Grid.Column="1" Content="Интервал:" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="2" SelectedItem="{Binding IntervalName}" ItemsSource="{Binding Intervals}"/>
             </Grid>
 
             <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" Content="Расчет" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
-                <Button Grid.Column="1" Content="Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
+                <Button Grid.Row="0" Content="Показать в приложении" Style="{StaticResource CalculateButtons}" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
+                <Button Grid.Row="1" Content="Создать книгу Excel" Style="{StaticResource CalculateButtons}" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
             </Grid>
         </Grid>
     </Grid>

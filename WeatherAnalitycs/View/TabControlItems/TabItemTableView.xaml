@@ -77,9 +77,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
-            <Button Grid.Column="0" Content="Расчет" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
-            <Button Grid.Column="1" Content="Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
+
+            <Button Grid.Column="0" Content="Показать в приложении" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ButtonPressCommand}"/>
+            <Button Grid.Column="1" Content="Создать книгу Excel" Style="{StaticResource CalculateButtons}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ConvertToExcelCommand}"/>
         </Grid>
        
     </Grid>

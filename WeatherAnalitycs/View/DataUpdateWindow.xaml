@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:WeatherAnalitycs.ViewModel" 
         d:DataContext="{d:DesignInstance Type=viewmodel:DataUpdateViewModel}"
         mc:Ignorable="d"
-        Title="Обновление данных" Height="550" Width="450" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize">
+        Title="Актуализация данных" Height="550" Width="450" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -28,7 +28,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Text="Обновление данных" Style="{StaticResource WindowLabel}"/>
+        <TextBlock Grid.Row="0" Text="Актуализация данных" Style="{StaticResource WindowLabel}"/>
         <RadioButton Grid.Row="1" x:Name="rbUpdateAll" Content="Все" IsChecked="{Binding UpdateAll}"/>
         <Rectangle Grid.Row="2"/>
         <RadioButton Grid.Row="3" x:Name="rbChooseUpgrades" Content="Выбрать станции:"/>

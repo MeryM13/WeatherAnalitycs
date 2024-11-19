@@ -16,7 +16,6 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         decimal _direction;
         string _intervalName, _directionName;
         DateInterval _interval = DateInterval.Month;
-        bool _calm;
 
         readonly Dictionary<string, DateInterval> intervalDict = new()
         {
@@ -29,6 +28,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
 
         readonly Dictionary<decimal, string> directionDict = new()
         {
+            { -1, "штилей" },
             { 0, "северного ветра" },
             { 45, "северо-восточного ветра" },
             { 90, "восточного ветра" },
@@ -58,18 +58,7 @@ namespace WeatherAnalitycs.ViewModel.TabItems
             {
                 _direction = value;
                 _directionName = directionDict[_direction];
-                _calm = false;
                 OnPropertyChanged(nameof(Direction));
-                OnPropertyChanged(nameof(Calm));
-            }
-        }
-
-        public bool Calm
-        {
-            get { return _calm; } 
-            set
-            {
-                _calm = value;
             }
         }
 
@@ -84,30 +73,18 @@ namespace WeatherAnalitycs.ViewModel.TabItems
         void OpenRepeatGraph()
         {
             Statistics stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
-            decimal? direction = _direction;
-            if (Calm)
-            {
-                direction = null;
-                _directionName = "штилей";
-            }
             string title = $"График повторяемости {_directionName} с интервалом {_intervalName} для станции {Store.StationId} за период с {Store.From:d} до {Store.To:d}";
             int entries = stat.GetAll();
-            DisplayWindow window = new(title, entries, stat.GetWindPeriodicityChart(direction, _interval), Settings);
+            DisplayWindow window = new(title, entries, stat.GetWindPeriodicityChart((Direction == -1? null: Direction), _interval), Settings);
             window.Show();
         }
 
         async void CreateExcelSheet()
         {
             Statistics stat = new(Store.From, Store.To, Store.StationId, Settings.DatabaseConnectionString, Settings.DatabaseServer);
-            decimal? direction = _direction;
-            if (Calm)
-            {
-                direction = null;
-                _directionName = "штилей";
-            }
             var converter = new ExcelConverter(Settings.ExcelSavePath);
             await Task.Run(() => converter.Convert($"{Store.StationId}_Повторяемость {_directionName}_{Store.From:d}-{Store.To:d}",
-                stat.GetWindPeriodicityChart(direction, _interval)));
+                stat.GetWindPeriodicityChart((Direction == -1 ? null : Direction), _interval)));
             MessageBox.Show("Таблица создана");
         }
     }

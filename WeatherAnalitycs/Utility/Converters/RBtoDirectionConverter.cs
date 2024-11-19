@@ -12,7 +12,7 @@ namespace WeatherAnalitycs.Utility.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            decimal? direction = (decimal)value;
+            decimal? direction = (decimal?)value;
             if (direction == decimal.Parse(parameter.ToString()))
                 return true;
             else

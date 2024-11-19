@@ -22,6 +22,7 @@
             <RowDefinition/>
             <RowDefinition Height="6*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Выберите необходимые параметры:" Style="{StaticResource UCLabel}"/>
